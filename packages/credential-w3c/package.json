@@ -14,16 +14,13 @@
     }
   },
   "dependencies": {
-    "@transmute/credentials-context": "^0.7.0-unstable.6",
-    "@transmute/ed25519-signature-2018": "^0.7.0-unstable.6",
-    "@transmute/did-key-ed25519": "^0.2.1-unstable.41",
-    "@transmute/ed25519-signature-2020": "^0.2.1-unstable.10",
+    "@transmute/credentials-context": "^0.7.0-unstable.7",
+    "@transmute/lds-ecdsa-secp256k1-recovery2020": "^0.0.7",
     "@veramo/core": "^3.1.0",
     "@veramo/did-jwt": "^3.1.0",
     "@veramo/did-resolver": "^3.1.0",
     "@veramo/message-handler": "^3.1.0",
-    "EcdsaSecp256k1RecoverySignature2020": "git+https://github.com/decentralized-identity/EcdsaSecp256k1RecoverySignature2020.git",
-    "base-58": "^0.0.1",
+    "@veramo/utils": "^2.1.0",
     "blakejs": "^1.1.0",
     "debug": "^4.1.1",
     "did-jwt-vc": "2.1.7",
@@ -36,6 +33,7 @@
   },
   "devDependencies": {
     "@types/debug": "4.1.7",
+    "borc": "^3.0.0",
     "typescript": "4.4.4"
   },
   "files": [
@@ -51,10 +49,7 @@
   "repository": "git@github.com:uport-project/veramo.git",
   "author": "Simonas Karuzas <simonas.karuzas@mesh.xyz>",
   "contributors": [
-    {
-      "name": "Mircea Nistor",
-      "email": "mircea.nistor@mesh.xyz"
-    }
+      "Mircea Nistor <mircea.nistor@mesh.xyz>"
   ],
   "license": "Apache-2.0",
   "keywords": []

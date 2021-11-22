@@ -1,7 +1,7 @@
 {
   "name": "@sphereon/did-provider-ethr",
   "description": "Veramo ehtr-did based identity controller plugin.",
-  "version": "3.1.900",
+  "version": "3.1.1-unstable.47+10287aa6",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
@@ -16,8 +16,8 @@
     "@ethersproject/properties": "5.5.0",
     "@ethersproject/signing-key": "5.5.0",
     "@ethersproject/transactions": "5.5.0",
-    "@sphereon/core": "^3.1.900",
-    "@sphereon/did-manager": "^3.1.900",
+    "@sphereon/core": "^3.1.1-unstable.47+10287aa6",
+    "@sphereon/did-manager": "^3.1.1-unstable.47+10287aa6",
     "debug": "^4.1.1",
     "ethr-did": "2.1.5"
   },
@@ -43,5 +43,6 @@
     }
   ],
   "license": "Apache-2.0",
-  "keywords": []
+  "keywords": [],
+  "gitHead": "10287aa69b1bab8e6a8e38fffdd94b08452679d1"
 }

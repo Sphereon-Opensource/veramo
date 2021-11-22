@@ -1,7 +1,7 @@
 {
   "name": "@sphereon/credential-w3c",
   "description": "Veramo plugin for working with W3C Verifiable Credentials & Presentations.",
-  "version": "3.1.900",
+  "version": "3.1.1-unstable.47+10287aa6",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
@@ -14,11 +14,11 @@
     }
   },
   "dependencies": {
-    "@sphereon/core": "^3.1.900",
-    "@sphereon/did-jwt": "^3.1.900",
-    "@sphereon/did-resolver": "^3.1.900",
-    "@sphereon/message-handler": "^3.1.900",
-    "@sphereon/utils": "^3.1.900",
+    "@sphereon/core": "^3.1.1-unstable.47+10287aa6",
+    "@sphereon/did-jwt": "^3.1.1-unstable.47+10287aa6",
+    "@sphereon/did-resolver": "^3.1.1-unstable.47+10287aa6",
+    "@sphereon/message-handler": "^3.1.1-unstable.47+10287aa6",
+    "@sphereon/utils": "^3.1.1-unstable.47+10287aa6",
     "blakejs": "^1.1.0",
     "debug": "^4.1.1",
     "did-jwt-vc": "2.1.7",
@@ -26,7 +26,7 @@
     "uint8arrays": "^2.1.3"
   },
   "optionalDependencies": {
-    "@sphereon/credential-ld": "^3.1.900"
+    "@sphereon/credential-ld": "^3.1.1-unstable.47+10287aa6"
   },
   "devDependencies": {
     "@types/debug": "4.1.7",
@@ -49,5 +49,6 @@
     "Mircea Nistor <mircea.nistor@mesh.xyz>"
   ],
   "license": "Apache-2.0",
-  "keywords": []
+  "keywords": [],
+  "gitHead": "10287aa69b1bab8e6a8e38fffdd94b08452679d1"
 }

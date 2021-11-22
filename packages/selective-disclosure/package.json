@@ -1,7 +1,7 @@
 {
   "name": "@sphereon/selective-disclosure",
   "description": "Veramo plugin to enable the uPort selective disclosure protocol with W3C compatibility.",
-  "version": "3.1.900",
+  "version": "3.1.1-unstable.47+10287aa6",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
@@ -14,11 +14,11 @@
     }
   },
   "dependencies": {
-    "@sphereon/core": "^3.1.900",
-    "@sphereon/credential-w3c": "^3.1.900",
-    "@sphereon/data-store": "^3.1.900",
-    "@sphereon/did-jwt": "^3.1.900",
-    "@sphereon/message-handler": "^3.1.900",
+    "@sphereon/core": "^3.1.1-unstable.47+10287aa6",
+    "@sphereon/credential-w3c": "^3.1.1-unstable.47+10287aa6",
+    "@sphereon/data-store": "^3.1.1-unstable.47+10287aa6",
+    "@sphereon/did-jwt": "^3.1.1-unstable.47+10287aa6",
+    "@sphereon/message-handler": "^3.1.1-unstable.47+10287aa6",
     "blakejs": "^1.1.0",
     "debug": "^4.1.1",
     "did-jwt": "5.11.1"
@@ -46,5 +46,6 @@
     }
   ],
   "license": "Apache-2.0",
-  "keywords": []
+  "keywords": [],
+  "gitHead": "10287aa69b1bab8e6a8e38fffdd94b08452679d1"
 }

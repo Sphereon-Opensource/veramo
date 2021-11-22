@@ -1,7 +1,7 @@
 {
   "name": "@sphereon/key-manager",
   "description": "Key Manager plugin for Veramo",
-  "version": "3.1.900",
+  "version": "3.1.1-unstable.47+10287aa6",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
@@ -12,8 +12,8 @@
     "@ethersproject/bytes": "5.5.0",
     "@ethersproject/strings": "5.5.0",
     "@ethersproject/transactions": "5.5.0",
+    "@sphereon/core": "^3.1.1-unstable.47+10287aa6",
     "@stablelib/ed25519": "^1.0.2",
-    "@sphereon/core": "^3.1.900",
     "did-jwt": "5.11.1",
     "uint8arrays": "3.0.0"
   },
@@ -38,5 +38,6 @@
     }
   ],
   "license": "Apache-2.0",
-  "keywords": []
+  "keywords": [],
+  "gitHead": "10287aa69b1bab8e6a8e38fffdd94b08452679d1"
 }

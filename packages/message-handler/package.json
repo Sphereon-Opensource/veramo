@@ -1,7 +1,7 @@
 {
   "name": "@sphereon/message-handler",
   "description": "Message Handler plugin for Veramo",
-  "version": "3.1.900",
+  "version": "3.1.1-unstable.47+10287aa6",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
@@ -9,7 +9,7 @@
     "extract-api": "yarn veramo dev extract-api"
   },
   "dependencies": {
-    "@sphereon/core": "^3.1.900"
+    "@sphereon/core": "^3.1.1-unstable.47+10287aa6"
   },
   "devDependencies": {
     "typescript": "4.4.4"
@@ -32,5 +32,6 @@
     }
   ],
   "license": "Apache-2.0",
-  "keywords": []
+  "keywords": [],
+  "gitHead": "10287aa69b1bab8e6a8e38fffdd94b08452679d1"
 }

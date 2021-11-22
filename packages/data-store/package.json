@@ -1,7 +1,7 @@
 {
   "name": "@sphereon/data-store",
   "description": "Veramo date storage based on TypeORM",
-  "version": "3.1.900",
+  "version": "3.1.1-unstable.47+10287aa6",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
@@ -14,10 +14,10 @@
     }
   },
   "dependencies": {
-    "@sphereon/core": "^3.1.900",
-    "@sphereon/did-discovery": "^3.1.900",
-    "@sphereon/did-manager": "^3.1.900",
-    "@sphereon/key-manager": "^3.1.900",
+    "@sphereon/core": "^3.1.1-unstable.47+10287aa6",
+    "@sphereon/did-discovery": "^3.1.1-unstable.47+10287aa6",
+    "@sphereon/did-manager": "^3.1.1-unstable.47+10287aa6",
+    "@sphereon/key-manager": "^3.1.1-unstable.47+10287aa6",
     "debug": "^4.1.1",
     "typeorm": "0.2.40"
   },
@@ -45,5 +45,6 @@
     }
   ],
   "license": "Apache-2.0",
-  "keywords": []
+  "keywords": [],
+  "gitHead": "10287aa69b1bab8e6a8e38fffdd94b08452679d1"
 }

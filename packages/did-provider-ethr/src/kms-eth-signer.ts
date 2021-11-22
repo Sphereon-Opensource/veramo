@@ -5,7 +5,7 @@ import { Bytes } from '@ethersproject/bytes'
 import { Deferrable, resolveProperties } from '@ethersproject/properties'
 import { computeAddress, serialize, UnsignedTransaction } from '@ethersproject/transactions'
 import { IRequiredContext } from './ethr-did-provider'
-import { IKey } from '@veramo/core'
+import { IKey } from '@sphereon/core'
 
 /**
  * Creates an `@ethersproject/abstract-signer` implementation by wrapping

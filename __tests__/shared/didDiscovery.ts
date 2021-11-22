@@ -3,7 +3,7 @@ import { TAgent, IDIDManager, IKeyManager, IIdentifier } from '../../packages/co
 import { IDataStoreORM } from '../../packages/data-store/src'
 import { ICredentialIssuer } from '../../packages/credential-w3c/src'
 import { getConnection } from 'typeorm'
-import { IAgentOptions } from '@veramo/core'
+import { IAgentOptions } from '@sphereon/core'
 
 type ConfiguredAgent = TAgent<IDIDManager & IDIDDiscovery & IDataStoreORM & ICredentialIssuer>
 

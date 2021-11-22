@@ -1,7 +1,7 @@
 {
-  "name": "@veramo/did-provider-key",
+  "name": "@sphereon/did-provider-key",
   "description": "Veramo plugin that can enable creation and control of did:key identifiers.",
-  "version": "3.1.0",
+  "version": "3.1.900",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
@@ -12,8 +12,8 @@
     "@transmute/did-key-ed25519": "^0.3.0-unstable.4",
     "@transmute/did-key-secp256k1": "^0.3.0-unstable.4",
     "@transmute/did-key-x25519": "^0.3.0-unstable.4",
-    "@veramo/core": "^3.1.0",
-    "@veramo/did-manager": "^3.1.0",
+    "@sphereon/core": "^3.1.900",
+    "@sphereon/did-manager": "^3.1.900",
     "debug": "^4.1.1",
     "multibase": "^4.0.2",
     "multicodec": "^3.0.0"

@@ -1,4 +1,4 @@
-import { KeyMetadata, TKeyType } from '@veramo/core'
+import { KeyMetadata, TKeyType } from '@sphereon/core'
 import { Entity, Column, PrimaryColumn, BaseEntity, ManyToOne } from 'typeorm'
 import { Identifier } from './identifier'
 

@@ -1,8 +1,8 @@
 import { KeyManagementSystem } from '../key-management-system'
-import { TKeyType } from '@veramo/core'
-import { MemoryPrivateKeyStore } from '@veramo/key-manager/src'
+import { TKeyType } from '@sphereon/core'
+import { MemoryPrivateKeyStore } from '@sphereon/key-manager/src'
 
-describe('@veramo/kms-local', () => {
+describe('@sphereon/kms-local', () => {
   it('should compute a shared secret Ed+Ed', async () => {
     const kms = new KeyManagementSystem(new MemoryPrivateKeyStore())
     const myKey = {

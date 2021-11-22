@@ -1,4 +1,4 @@
-import { TKeyType } from '@veramo/core'
+import { TKeyType } from '@sphereon/core'
 import { Entity, Column, PrimaryColumn, BaseEntity } from 'typeorm'
 
 export type KeyType = TKeyType

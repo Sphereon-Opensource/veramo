@@ -25,7 +25,7 @@ let resolver: Resolver = new Resolver({
 
 let resolverPlugin: DIDResolverPlugin = new DIDResolverPlugin({ resolver })
 
-describe('@veramo/did-resolver', () => {
+describe('@sphereon/did-resolver', () => {
   beforeAll(() => {})
 
   it('should resolve web DID', async () => {

@@ -8,7 +8,7 @@ import {
   IMessageHandler,
   IAgentPlugin,
   IIdentifier,
-} from '@veramo/core'
+} from '@sphereon/core'
 import {
   createAnonDecrypter,
   createAuthDecrypter,
@@ -42,7 +42,7 @@ import {
   resolveDidOrThrow,
   _ExtendedIKey,
   _NormalizedVerificationMethod,
-} from '@veramo/utils'
+} from '@sphereon/utils'
 
 import Debug from 'debug'
 import { IDIDComm } from './types/IDIDComm'
@@ -114,7 +114,7 @@ export interface ISendDIDCommMessageArgs {
 }
 
 /**
- * DID Comm plugin for {@link @veramo/core#Agent}
+ * DID Comm plugin for {@link @sphereon/core#Agent}
  *
  * This plugin provides a method of creating an encrypted message according to the initial {@link https://github.com/decentralized-identifier/DIDComm-js | DIDComm-js} implementation.
  *

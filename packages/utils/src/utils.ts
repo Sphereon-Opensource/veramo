@@ -1,7 +1,7 @@
 import { convertPublicKeyToX25519, convertSecretKeyToX25519 } from '@stablelib/ed25519'
 import { computePublicKey } from '@ethersproject/signing-key'
 import { computeAddress } from '@ethersproject/transactions'
-import { DIDDocumentSection, IAgentContext, IIdentifier, IKey, IResolver } from '@veramo/core'
+import { DIDDocumentSection, IAgentContext, IIdentifier, IKey, IResolver } from '@sphereon/core'
 import { DIDDocument, VerificationMethod } from 'did-resolver'
 import * as u8a from 'uint8arrays'
 

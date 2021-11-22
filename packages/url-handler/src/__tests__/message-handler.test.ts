@@ -1,7 +1,7 @@
-import { Message } from '@veramo/message-handler'
+import { Message } from '@sphereon/message-handler'
 import { UrlMessageHandler } from '../index'
 import fetchMock, { MockParams } from 'jest-fetch-mock'
-import { IAgent } from '@veramo/core'
+import { IAgent } from '@sphereon/core'
 fetchMock.enableMocks()
 
 const context = {
@@ -13,7 +13,7 @@ const context = {
   },
 }
 
-describe('@veramo/url-handler', () => {
+describe('@sphereon/url-handler', () => {
   const messageHandler = new UrlMessageHandler()
 
   it('should reject unknown message type', async () => {

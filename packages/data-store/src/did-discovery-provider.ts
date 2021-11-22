@@ -1,11 +1,11 @@
-import { IAgentContext } from '@veramo/core'
+import { IAgentContext } from '@sphereon/core'
 import { IDataStoreORM } from './data-store-orm'
 import {
   AbstractDidDiscoveryProvider,
   IDIDDiscoverMatch,
   IDIDDiscoveryProviderResult,
   IDIDDiscoveryDiscoverDidArgs,
-} from '@veramo/did-discovery'
+} from '@sphereon/did-discovery'
 
 export class ProfileDiscoveryProvider implements AbstractDidDiscoveryProvider {
   readonly name = 'profile'

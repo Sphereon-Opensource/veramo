@@ -1,11 +1,11 @@
 /**
- * {@link https://expressjs.com | Express} router for exposing `@veramo/remote-client` OpenAPI schema
+ * {@link https://expressjs.com | Express} router for exposing `@sphereon/remote-client` OpenAPI schema
  *
  * @example
  * ```typescript
  * import express from 'express'
  * import { agent } from './agent'
- * import { AgentRouter, ApiSchemaRouter, WebDidDocRouter } from '@veramo/remote-server'
+ * import { AgentRouter, ApiSchemaRouter, WebDidDocRouter } from '@sphereon/remote-server'
  *
  * const getAgentForRequest = async (req: express.Request) => agent
  * const exposedMethods = agent.availableMethods()

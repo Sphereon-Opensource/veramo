@@ -1,5 +1,5 @@
-import { IKey, ManagedKeyInfo } from '@veramo/core'
-import { AbstractKeyStore } from '@veramo/key-manager'
+import { IKey, ManagedKeyInfo } from '@sphereon/core'
+import { AbstractKeyStore } from '@sphereon/key-manager'
 import { Connection } from 'typeorm'
 
 import { Key } from '../entities/key'

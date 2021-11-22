@@ -1,6 +1,6 @@
 /**
- * Provides `did:key` {@link @veramo/did-provider-key#KeyDIDProvider | identifier provider } for the
- * {@link @veramo/did-manager#DIDManager}
+ * Provides `did:key` {@link @sphereon/did-provider-key#KeyDIDProvider | identifier provider } for the
+ * {@link @sphereon/did-manager#DIDManager}
  *
  * @packageDocumentation
  */

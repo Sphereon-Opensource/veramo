@@ -20,11 +20,11 @@ import {
   MinimalImportableIdentifier,
   IKey,
   IService,
-} from '@veramo/core'
+} from '@sphereon/core'
 import { AbstractDIDStore } from './abstract-identifier-store'
 
 /**
- * Agent plugin that implements {@link @veramo/core#IDIDManager} interface
+ * Agent plugin that implements {@link @sphereon/core#IDIDManager} interface
  * @public
  */
 export class DIDManager implements IAgentPlugin {
@@ -70,28 +70,28 @@ export class DIDManager implements IAgentPlugin {
     return provider
   }
 
-  /** {@inheritDoc @veramo/core#IDIDManager.didManagerGetProviders} */
+  /** {@inheritDoc @sphereon/core#IDIDManager.didManagerGetProviders} */
   async didManagerGetProviders(): Promise<string[]> {
     return Object.keys(this.providers)
   }
 
-  /** {@inheritDoc @veramo/core#IDIDManager.didManagerFind} */
+  /** {@inheritDoc @sphereon/core#IDIDManager.didManagerFind} */
   async didManagerFind(args: IDIDManagerFindArgs): Promise<IIdentifier[]> {
     return this.store.list(args)
   }
 
-  /** {@inheritDoc @veramo/core#IDIDManager.didManagerGet} */
+  /** {@inheritDoc @sphereon/core#IDIDManager.didManagerGet} */
   async didManagerGet({ did }: IDIDManagerGetArgs): Promise<IIdentifier> {
     return this.store.get({ did })
   }
 
-  /** {@inheritDoc @veramo/core#IDIDManager.didManagerGetByAlias} */
+  /** {@inheritDoc @sphereon/core#IDIDManager.didManagerGetByAlias} */
   async didManagerGetByAlias({ alias, provider }: IDIDManagerGetByAliasArgs): Promise<IIdentifier> {
     const providerName = provider || this.defaultProvider
     return this.store.get({ alias, provider: providerName })
   }
 
-  /** {@inheritDoc @veramo/core#IDIDManager.didManagerCreate} */
+  /** {@inheritDoc @sphereon/core#IDIDManager.didManagerCreate} */
   async didManagerCreate(
     args: IDIDManagerCreateArgs,
     context: IAgentContext<IKeyManager>,
@@ -119,7 +119,7 @@ export class DIDManager implements IAgentPlugin {
     return identifier
   }
 
-  /** {@inheritDoc @veramo/core#IDIDManager.didManagerGetOrCreate} */
+  /** {@inheritDoc @sphereon/core#IDIDManager.didManagerGetOrCreate} */
   async didManagerGetOrCreate(
     { provider, alias, kms, options }: IDIDManagerGetOrCreateArgs,
     context: IAgentContext<IKeyManager>,
@@ -133,7 +133,7 @@ export class DIDManager implements IAgentPlugin {
     }
   }
 
-  /** {@inheritDoc @veramo/core#IDIDManager.didManagerSetAlias} */
+  /** {@inheritDoc @sphereon/core#IDIDManager.didManagerSetAlias} */
   async didManagerSetAlias(
     { did, alias }: IDIDManagerSetAliasArgs,
     context: IAgentContext<IKeyManager>,
@@ -142,7 +142,7 @@ export class DIDManager implements IAgentPlugin {
     identifier.alias = alias
     return await this.store.import(identifier)
   }
-  /** {@inheritDoc @veramo/core#IDIDManager.didManagerImport} */
+  /** {@inheritDoc @sphereon/core#IDIDManager.didManagerImport} */
   async didManagerImport(
     identifier: MinimalImportableIdentifier,
     context: IAgentContext<IKeyManager>,
@@ -162,7 +162,7 @@ export class DIDManager implements IAgentPlugin {
     return importedDID
   }
 
-  /** {@inheritDoc @veramo/core#IDIDManager.didManagerDelete} */
+  /** {@inheritDoc @sphereon/core#IDIDManager.didManagerDelete} */
   async didManagerDelete(
     { did }: IDIDManagerDeleteArgs,
     context: IAgentContext<IKeyManager>,
@@ -173,7 +173,7 @@ export class DIDManager implements IAgentPlugin {
     return this.store.delete({ did })
   }
 
-  /** {@inheritDoc @veramo/core#IDIDManager.didManagerAddKey} */
+  /** {@inheritDoc @sphereon/core#IDIDManager.didManagerAddKey} */
   async didManagerAddKey(
     { did, key, options }: IDIDManagerAddKeyArgs,
     context: IAgentContext<IKeyManager>,
@@ -186,7 +186,7 @@ export class DIDManager implements IAgentPlugin {
     return result
   }
 
-  /** {@inheritDoc @veramo/core#IDIDManager.didManagerRemoveKey} */
+  /** {@inheritDoc @sphereon/core#IDIDManager.didManagerRemoveKey} */
   async didManagerRemoveKey(
     { did, kid, options }: IDIDManagerRemoveKeyArgs,
     context: IAgentContext<IKeyManager>,
@@ -199,7 +199,7 @@ export class DIDManager implements IAgentPlugin {
     return result
   }
 
-  /** {@inheritDoc @veramo/core#IDIDManager.didManagerAddService} */
+  /** {@inheritDoc @sphereon/core#IDIDManager.didManagerAddService} */
   async didManagerAddService(
     { did, service, options }: IDIDManagerAddServiceArgs,
     context: IAgentContext<IKeyManager>,
@@ -212,7 +212,7 @@ export class DIDManager implements IAgentPlugin {
     return result
   }
 
-  /** {@inheritDoc @veramo/core#IDIDManager.didManagerRemoveService} */
+  /** {@inheritDoc @sphereon/core#IDIDManager.didManagerRemoveService} */
   async didManagerRemoveService(
     { did, id, options }: IDIDManagerRemoveServiceArgs,
     context: IAgentContext<IKeyManager>,

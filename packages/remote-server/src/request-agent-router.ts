@@ -1,4 +1,4 @@
-import { IAgent } from '@veramo/core'
+import { IAgent } from '@sphereon/core'
 import { Request, Router } from 'express'
 
 export interface RequestWithAgent extends Request {

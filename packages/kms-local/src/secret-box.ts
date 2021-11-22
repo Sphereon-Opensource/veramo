@@ -1,4 +1,4 @@
-import { AbstractSecretBox } from '@veramo/key-manager'
+import { AbstractSecretBox } from '@sphereon/key-manager'
 import { secretBox, openSecretBox, generateKeyPair } from '@stablelib/nacl'
 import { randomBytes } from '@stablelib/random'
 import { arrayify, hexConcat, hexlify } from '@ethersproject/bytes'

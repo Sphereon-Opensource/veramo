@@ -1,4 +1,4 @@
-import { IAgent, IMessageHandler, TAgent } from '@veramo/core'
+import { IAgent, IMessageHandler, TAgent } from '@sphereon/core'
 import { text, Request, Router } from 'express'
 
 interface RequestWithMessageHandler extends Request {

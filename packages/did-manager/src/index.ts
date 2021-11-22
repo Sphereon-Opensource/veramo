@@ -1,6 +1,6 @@
 /**
- * Provides a {@link @veramo/did-manager#DIDManager | plugin} for the
- * {@link @veramo/core#Agent} that implements {@link @veramo/core#IDIDManager} interface.
+ * Provides a {@link @sphereon/did-manager#DIDManager | plugin} for the
+ * {@link @sphereon/core#Agent} that implements {@link @sphereon/core#IDIDManager} interface.
  *
  * @packageDocumentation
  */

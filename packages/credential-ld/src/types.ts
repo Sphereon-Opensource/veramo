@@ -7,7 +7,7 @@ import {
   IResolver,
   VerifiableCredential,
   VerifiablePresentation,
-} from '@veramo/core'
+} from '@sphereon/core'
 
 /**
  * The interface definition for a plugin that can issue and verify Verifiable Credentials and Presentations
@@ -25,7 +25,7 @@ export interface ICredentialIssuerLD extends IPluginMethodMap {
    * @param args - Arguments necessary to create the Presentation.
    * @param context - This reserved param is automatically added and handled by the framework, *do not override*
    *
-   * @returns - a promise that resolves to the {@link @veramo/core#VerifiablePresentation} that was requested or rejects with an error
+   * @returns - a promise that resolves to the {@link @sphereon/core#VerifiablePresentation} that was requested or rejects with an error
    * if there was a problem with the input or while getting the key to sign
    *
    * @remarks Please see {@link https://www.w3.org/TR/vc-data-model/#presentations | Verifiable Presentation data model }
@@ -44,7 +44,7 @@ export interface ICredentialIssuerLD extends IPluginMethodMap {
    * @param args - Arguments necessary to create the Presentation.
    * @param context - This reserved param is automatically added and handled by the framework, *do not override*
    *
-   * @returns - a promise that resolves to the {@link @veramo/core#VerifiableCredential} that was requested or rejects with an error
+   * @returns - a promise that resolves to the {@link @sphereon/core#VerifiableCredential} that was requested or rejects with an error
    * if there was a problem with the input or while getting the key to sign
    *
    * @remarks Please see {@link https://www.w3.org/TR/vc-data-model/#credentials | Verifiable Credential data model}

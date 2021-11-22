@@ -1,10 +1,10 @@
-import { IAgentContext, IDIDManager } from '@veramo/core'
+import { IAgentContext, IDIDManager } from '@sphereon/core'
 import {
   AbstractDidDiscoveryProvider,
   IDIDDiscoverMatch,
   IDIDDiscoveryProviderResult,
   IDIDDiscoveryDiscoverDidArgs,
-} from '@veramo/did-discovery'
+} from '@sphereon/did-discovery'
 
 export class AliasDiscoveryProvider implements AbstractDidDiscoveryProvider {
   readonly name = 'alias'

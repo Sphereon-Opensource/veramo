@@ -289,9 +289,9 @@ export class Agent implements IAgent {
  *
  * @example
  * ```typescript
- * import { createAgent, IResolver, IMessageHandler } from '@veramo/core'
- * import { AgentRestClient } from '@veramo/remote-client'
- * import { CredentialIssuer, ICredentialIssuer } from '@veramo/credential-w3c'
+ * import { createAgent, IResolver, IMessageHandler } from '@sphereon/core'
+ * import { AgentRestClient } from '@sphereon/remote-client'
+ * import { CredentialIssuer, ICredentialIssuer } from '@sphereon/credential-w3c'
  * const agent = createAgent<IResolver & IMessageHandler & ICredentialIssuer>({
  *   plugins: [
  *     new CredentialIssuer(),

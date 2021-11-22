@@ -3,7 +3,7 @@
 ## Install CLI
 
 ```
-npm -g i @veramo/cli
+npm -g i @sphereon/cli
 ```
 
 ## Usage

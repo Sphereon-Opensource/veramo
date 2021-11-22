@@ -1,7 +1,7 @@
 import { DIDResolverPlugin } from '../resolver'
 import { Resolver } from 'did-resolver'
 
-describe('@veramo/did-resolver', () => {
+describe('@sphereon/did-resolver', () => {
   it('should throw error when misconfigured', () => {
     expect(() => {
       new DIDResolverPlugin({

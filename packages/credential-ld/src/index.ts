@@ -1,6 +1,6 @@
 /**
- * Provides a {@link @veramo/credential-ld#CredentialIssuerLD | plugin} for the {@link @veramo/core#Agent} that implements
- * {@link @veramo/credential-ld#ICredentialIssuerLD} interface.
+ * Provides a {@link @sphereon/credential-ld#CredentialIssuerLD | plugin} for the {@link @sphereon/core#Agent} that implements
+ * {@link @sphereon/credential-ld#ICredentialIssuerLD} interface.
  *
  * @packageDocumentation
  */

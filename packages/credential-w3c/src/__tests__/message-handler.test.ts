@@ -1,10 +1,10 @@
-import { DIDResolutionResult } from '@veramo/core'
-import { Message } from '@veramo/message-handler'
+import { DIDResolutionResult } from '@sphereon/core'
+import { Message } from '@sphereon/message-handler'
 import { W3cMessageHandler, MessageTypes } from '../index'
 import { IContext } from '../message-handler'
 import { blake2bHex } from 'blakejs'
 
-describe('@veramo/credential-w3c', () => {
+describe('@sphereon/credential-w3c', () => {
   const handler = new W3cMessageHandler()
   const didEthr = 'did:ethr:rinkeby:0x3c357ba458933a19c1df1c7f6b473b3302bbbe61'
   const didKey = 'did:key:z6Mkqjn1SMUbR88S7BZFAZnr7sfzPXmm3DfRdMy3Z5CdMqnd'
@@ -113,7 +113,7 @@ describe('@veramo/credential-w3c', () => {
   it('should return handled VC message (ES256K-R)', async () => {
     expect.assertions(6)
     const message = new Message({ raw: vcJwtSecp256k1, metaData: [{ type: 'test' }] })
-    // This would be done by '@veramo/did-jwt':
+    // This would be done by '@sphereon/did-jwt':
     message.data = vcPayloadSecp256k1
     message.addMetaData({ type: 'JWT', value: 'ES256K-R' })
     const handled = await handler.handle(message, context)
@@ -129,7 +129,7 @@ describe('@veramo/credential-w3c', () => {
   it('should return handled VP message (ES256K-R)', async () => {
     expect.assertions(7)
     const message = new Message({ raw: vpJwtSecp256k1, metaData: [{ type: 'test' }] })
-    // This would be done by '@veramo/did-jwt':
+    // This would be done by '@sphereon/did-jwt':
     message.data = vpPayloadSecp256k1
     message.addMetaData({ type: 'JWT', value: 'ES256K-R' })
 
@@ -180,7 +180,7 @@ describe('@veramo/credential-w3c', () => {
   it('should return handled VC message (Ed25519)', async () => {
     expect.assertions(6)
     const message = new Message({ raw: vcJwtEd25519, metaData: [{ type: 'test' }] })
-    // This would be done by '@veramo/did-jwt':
+    // This would be done by '@sphereon/did-jwt':
     message.data = vcPayloadEd25519
     message.addMetaData({ type: 'JWT', value: 'Ed25519' })
     const handled = await handler.handle(message, context)
@@ -195,7 +195,7 @@ describe('@veramo/credential-w3c', () => {
   it('should return handled VP message (Ed25519)', async () => {
     expect.assertions(7)
     const message = new Message({ raw: vpJwtEd25519, metaData: [{ type: 'test' }] })
-    // This would be done by '@veramo/did-jwt':
+    // This would be done by '@sphereon/did-jwt':
     message.data = vpPayloadEd25519
     message.addMetaData({ type: 'JWT', value: 'Ed25519' })
 
@@ -229,7 +229,7 @@ describe('@veramo/credential-w3c', () => {
   it('should use the first audience did as a message.to field', async () => {
     expect.assertions(7)
     const message = new Message({ raw: vpMultiAudJwt, metaData: [{ type: 'test' }] })
-    // This would be done by '@veramo/did-jwt':
+    // This would be done by '@sphereon/did-jwt':
     message.data = vpMultiAudPayload
     message.addMetaData({ type: 'JWT', value: 'ES256K-R' })
 
@@ -251,7 +251,7 @@ describe('@veramo/credential-w3c', () => {
       raw: token,
       metaData: [{ type: 'test' }],
     })
-    // This would be done by '@veramo/did-jwt':
+    // This would be done by '@sphereon/did-jwt':
     message.data = {
       iat: 1588249258,
       sub: 'did:web:uport.me',

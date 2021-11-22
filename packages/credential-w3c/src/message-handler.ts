@@ -1,5 +1,5 @@
-import { IAgentContext, IResolver, VerifiableCredential, VerifiablePresentation } from '@veramo/core'
-import { AbstractMessageHandler, Message } from '@veramo/message-handler'
+import { IAgentContext, IResolver, VerifiableCredential, VerifiablePresentation } from '@sphereon/core'
+import { AbstractMessageHandler, Message } from '@sphereon/message-handler'
 import { blake2bHex } from 'blakejs'
 import Debug from 'debug'
 import {
@@ -11,7 +11,7 @@ import { ICredentialIssuer } from './action-handler'
 const debug = Debug('veramo:w3c:message-handler')
 
 /**
- * These types are used by `@veramo/data-store` when storing Verifiable Credentials and Presentations
+ * These types are used by `@sphereon/data-store` when storing Verifiable Credentials and Presentations
  *
  * @internal
  */
@@ -31,14 +31,14 @@ export const MessageTypes = {
 export type IContext = IAgentContext<IResolver & ICredentialIssuer>
 
 /**
- * An implementation of the {@link @veramo/message-handler#AbstractMessageHandler}.
+ * An implementation of the {@link @sphereon/message-handler#AbstractMessageHandler}.
  *
  * This plugin can handle incoming W3C Verifiable Credentials and Presentations and prepare them
- * for internal storage as {@link @veramo/message-handler#Message} types.
+ * for internal storage as {@link @sphereon/message-handler#Message} types.
  *
  * The current version can only handle `JWT` encoded
  *
- * @remarks {@link @veramo/core#IDataStore | IDataStore }
+ * @remarks {@link @sphereon/core#IDataStore | IDataStore }
  *
  * @public
  */

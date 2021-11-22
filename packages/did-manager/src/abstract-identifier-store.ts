@@ -1,7 +1,7 @@
-import { IIdentifier } from '@veramo/core'
+import { IIdentifier } from '@sphereon/core'
 
 /**
- * An abstract class for the {@link @veramo/did-manager#DIDManager} identifier store
+ * An abstract class for the {@link @sphereon/did-manager#DIDManager} identifier store
  * @public
  */
 export abstract class AbstractDIDStore {

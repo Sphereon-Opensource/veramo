@@ -1,4 +1,4 @@
-import { VerifiablePresentation } from '@veramo/core'
+import { VerifiablePresentation } from '@sphereon/core'
 import { blake2bHex } from 'blakejs'
 import { Entity, Column, BaseEntity, ManyToOne, JoinTable, PrimaryColumn, ManyToMany } from 'typeorm'
 import { Identifier } from './identifier'

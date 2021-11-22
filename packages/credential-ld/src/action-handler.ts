@@ -6,11 +6,11 @@ import {
   IResolver,
   VerifiableCredential,
   VerifiablePresentation,
-} from '@veramo/core'
+} from '@sphereon/core'
 import { schema, VeramoLdSignature } from './'
 import Debug from 'debug'
 import { LdContextLoader } from "./ld-context-loader";
-import { _ExtendedIKey, asArray, mapIdentifierKeysToDoc, RecordLike, OrPromise } from "@veramo/utils";
+import { _ExtendedIKey, asArray, mapIdentifierKeysToDoc, RecordLike, OrPromise } from "@sphereon/utils";
 
 import { LdCredentialModule } from "./ld-credential-module";
 import { LdSuiteLoader } from './ld-suite-loader';

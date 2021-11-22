@@ -1,6 +1,6 @@
 /**
- * Provides a {@link @veramo/did-resolver#DIDResolverPlugin | plugin} for the {@link @veramo/core#Agent}
- * that implements {@link @veramo/core#IResolver } interface.
+ * Provides a {@link @sphereon/did-resolver#DIDResolverPlugin | plugin} for the {@link @sphereon/core#Agent}
+ * that implements {@link @sphereon/core#IResolver } interface.
  *
  * @packageDocumentation
  */

@@ -1,10 +1,10 @@
-import { ICredentialRequestInput } from '@veramo/selective-disclosure'
+import { ICredentialRequestInput } from '@sphereon/selective-disclosure'
 import { getAgent } from './setup'
 import { program } from 'commander'
 import inquirer from 'inquirer'
 import qrcode from 'qrcode-terminal'
 import { shortDate, shortDid } from './explore/utils'
-import { VerifiableCredential } from '@veramo/core'
+import { VerifiableCredential } from '@sphereon/core'
 const fuzzy = require('fuzzy')
 
 const sdr = program.command('sdr').description('Selective Disclosure Request')

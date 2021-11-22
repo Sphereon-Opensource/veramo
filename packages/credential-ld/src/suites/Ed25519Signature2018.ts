@@ -1,6 +1,6 @@
-import { encodeJoseBlob } from "@veramo/utils";
+import { encodeJoseBlob } from "@sphereon/utils";
 import { RequiredAgentMethods, VeramoLdSignature } from "../ld-suites";
-import { DIDDocument, IAgentContext, IIdentifier, IKey, TKeyType } from "@veramo/core";
+import { DIDDocument, IAgentContext, IIdentifier, IKey, TKeyType } from "@sphereon/core";
 import * as u8a from 'uint8arrays'
 import { Ed25519Signature2018, Ed25519VerificationKey2018 } from '@transmute/ed25519-signature-2018'
 import { CredentialPayload } from 'did-jwt-vc'

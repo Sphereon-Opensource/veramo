@@ -1,6 +1,6 @@
 /**
  * This runs a suite of ./shared tests using an agent configured for remote operations.
- * There is a local agent that only uses @veramo/remove-client and a remote agent that provides the actual functionality.
+ * There is a local agent that only uses @sphereon/remove-client and a remote agent that provides the actual functionality.
  *
  * This suite also runs a messaging server to run through some examples of DIDComm using did:fake identifiers.
  * See didWithFakeDidFlow() for more details.

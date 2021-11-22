@@ -1,4 +1,4 @@
-name: Sync @next with @latest
+name: Sync @3.1.900 with @latest
 on:
   workflow_dispatch:
   push:

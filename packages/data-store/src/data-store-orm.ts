@@ -5,7 +5,7 @@ import {
   VerifiablePresentation,
   IPluginMethodMap,
   IIdentifier,
-} from '@veramo/core'
+} from '@sphereon/core'
 import { Message, createMessage } from './entities/message'
 import { Claim } from './entities/claim'
 import { Credential } from './entities/credential'

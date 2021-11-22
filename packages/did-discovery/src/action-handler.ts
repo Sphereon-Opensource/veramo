@@ -1,4 +1,4 @@
-import { IAgentContext, IAgentPlugin, IDIDManager } from '@veramo/core'
+import { IAgentContext, IAgentPlugin, IDIDManager } from '@sphereon/core'
 
 import {
   IDIDDiscovery,

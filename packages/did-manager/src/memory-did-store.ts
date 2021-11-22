@@ -1,4 +1,4 @@
-import { IIdentifier } from '@veramo/core'
+import { IIdentifier } from '@sphereon/core'
 import { AbstractDIDStore } from './abstract-identifier-store'
 
 export class MemoryDIDStore extends AbstractDIDStore {

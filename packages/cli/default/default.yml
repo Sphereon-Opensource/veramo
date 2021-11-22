@@ -72,10 +72,10 @@ dbConnection:
       synchronize: false
       migrationsRun: true
       migrations:
-        $require: '@veramo/data-store?t=object#migrations'
+        $require: '@sphereon/data-store?t=object#migrations'
       logging: false
       entities:
-        $require: '@veramo/data-store?t=object#Entities'
+        $require: '@sphereon/data-store?t=object#Entities'
 
 # Server configuration
 server:
@@ -88,17 +88,17 @@ server:
     - - $require: 'cors'
 
     # Add agent to the request object
-    - - $require: '@veramo/remote-server?t=function#RequestWithAgentRouter'
+    - - $require: '@sphereon/remote-server?t=function#RequestWithAgentRouter'
         $args:
           - agent:
               $ref: /agent
 
     # DID Documents
-    - - $require: '@veramo/remote-server?t=function#WebDidDocRouter'
+    - - $require: '@sphereon/remote-server?t=function#WebDidDocRouter'
 
     # API base path
     - - /messaging
-      - $require: '@veramo/remote-server?t=function#MessagingRouter'
+      - $require: '@sphereon/remote-server?t=function#MessagingRouter'
         $args:
           - metaData:
               type: DIDComm
@@ -106,17 +106,17 @@ server:
 
     # API base path
     - - /agent
-      - $require: '@veramo/remote-server?t=function#apiKeyAuth'
+      - $require: '@sphereon/remote-server?t=function#apiKeyAuth'
         $args:
           - apiKey: test123
-      - $require: '@veramo/remote-server?t=function#AgentRouter'
+      - $require: '@sphereon/remote-server?t=function#AgentRouter'
         $args:
           - exposedMethods:
               $ref: /constants/methods
 
     # Open API schema
     - - /open-api.json
-      - $require: '@veramo/remote-server?t=function#ApiSchemaRouter'
+      - $require: '@sphereon/remote-server?t=function#ApiSchemaRouter'
         $args:
           - basePath: :3332/agent
             securityScheme: bearer
@@ -136,7 +136,7 @@ server:
 
   # Execute during server initialization
   init:
-    - $require: '@veramo/remote-server?t=function#createDefaultDid'
+    - $require: '@sphereon/remote-server?t=function#createDefaultDid'
       $args:
         - agent:
             $ref: /agent
@@ -146,17 +146,17 @@ server:
 
 # Message handler plugin
 messageHandler:
-  $require: '@veramo/message-handler#MessageHandler'
+  $require: '@sphereon/message-handler#MessageHandler'
   $args:
     - messageHandlers:
-        - $require: '@veramo/did-comm#DIDCommMessageHandler'
-        - $require: '@veramo/did-jwt#JwtMessageHandler'
-        - $require: '@veramo/credential-w3c#W3cMessageHandler'
-        - $require: '@veramo/selective-disclosure#SdrMessageHandler'
+        - $require: '@sphereon/did-comm#DIDCommMessageHandler'
+        - $require: '@sphereon/did-jwt#JwtMessageHandler'
+        - $require: '@sphereon/credential-w3c#W3cMessageHandler'
+        - $require: '@sphereon/selective-disclosure#SdrMessageHandler'
 
 # DID resolvers
 didResolver:
-  $require: '@veramo/did-resolver#DIDResolverPlugin'
+  $require: '@sphereon/did-resolver#DIDResolverPlugin'
   $args:
     - resolver:
         $require: did-resolver#Resolver
@@ -185,44 +185,44 @@ web-did-resolver:
   $require: web-did-resolver?t=function&p=/web#getResolver
 
 universal-resolver:
-  $require: '@veramo/did-resolver#UniversalResolver'
+  $require: '@sphereon/did-resolver#UniversalResolver'
   $args:
     - url: https://dev.uniresolver.io/1.0/identifiers/
 
 did-key-resolver:
-  $require: '@veramo/did-provider-key?t=function&p=/key#getDidKeyResolver'
+  $require: '@sphereon/did-provider-key?t=function&p=/key#getDidKeyResolver'
 
 # Key Manager
 keyManager:
-  $require: '@veramo/key-manager#KeyManager'
+  $require: '@sphereon/key-manager#KeyManager'
   $args:
     - store:
-        $require: '@veramo/data-store#KeyStore'
+        $require: '@sphereon/data-store#KeyStore'
         $args:
           - $ref: /dbConnection
       kms:
         local:
-          $require: '@veramo/kms-local#KeyManagementSystem'
+          $require: '@sphereon/kms-local#KeyManagementSystem'
           $args:
-            - $require: '@veramo/data-store#PrivateKeyStore'
+            - $require: '@sphereon/data-store#PrivateKeyStore'
               $args:
                 - $ref: /dbConnection
-                - $require: '@veramo/kms-local#SecretBox'
+                - $require: '@sphereon/kms-local#SecretBox'
                   $args:
                     - $ref: /constants/dbEncryptionKey
 
 # DID Manager
 didManager:
-  $require: '@veramo/did-manager#DIDManager'
+  $require: '@sphereon/did-manager#DIDManager'
   $args:
     - store:
-        $require: '@veramo/data-store#DIDStore'
+        $require: '@sphereon/data-store#DIDStore'
         $args:
           - $ref: /dbConnection
       defaultProvider: did:ethr:rinkeby
       providers:
         did:ethr:
-          $require: '@veramo/did-provider-ethr#EthrDIDProvider'
+          $require: '@sphereon/did-provider-ethr#EthrDIDProvider'
           $args:
             - defaultKms: local
               network: mainnet
@@ -230,7 +230,7 @@ didManager:
               gas: 1000001
               ttl: 31104001
         did:ethr:rinkeby:
-          $require: '@veramo/did-provider-ethr#EthrDIDProvider'
+          $require: '@sphereon/did-provider-ethr#EthrDIDProvider'
           $args:
             - defaultKms: local
               network: rinkeby
@@ -238,7 +238,7 @@ didManager:
               gas: 1000001
               ttl: 31104001
         did:ethr:ropsten:
-          $require: '@veramo/did-provider-ethr#EthrDIDProvider'
+          $require: '@sphereon/did-provider-ethr#EthrDIDProvider'
           $args:
             - defaultKms: local
               network: ropsten
@@ -246,7 +246,7 @@ didManager:
               gas: 1000001
               ttl: 31104001
         did:ethr:kovan:
-          $require: '@veramo/did-provider-ethr#EthrDIDProvider'
+          $require: '@sphereon/did-provider-ethr#EthrDIDProvider'
           $args:
             - defaultKms: local
               network: kovan
@@ -254,7 +254,7 @@ didManager:
               gas: 1000001
               ttl: 31104001
         did:ethr:goerli:
-          $require: '@veramo/did-provider-ethr#EthrDIDProvider'
+          $require: '@sphereon/did-provider-ethr#EthrDIDProvider'
           $args:
             - defaultKms: local
               network: goerli
@@ -262,37 +262,37 @@ didManager:
               gas: 1000001
               ttl: 31104001
         did:web:
-          $require: '@veramo/did-provider-web#WebDIDProvider'
+          $require: '@sphereon/did-provider-web#WebDIDProvider'
           $args:
             - defaultKms: local
         did:key:
-          $require: '@veramo/did-provider-key#KeyDIDProvider'
+          $require: '@sphereon/did-provider-key#KeyDIDProvider'
           $args:
             - defaultKms: local
 
 didDiscovery:
-  $require: '@veramo/did-discovery#DIDDiscovery'
+  $require: '@sphereon/did-discovery#DIDDiscovery'
   $args:
     - providers:
-        - $require: '@veramo/did-manager#AliasDiscoveryProvider'
-        - $require: '@veramo/data-store#ProfileDiscoveryProvider'
+        - $require: '@sphereon/did-manager#AliasDiscoveryProvider'
+        - $require: '@sphereon/data-store#ProfileDiscoveryProvider'
 
 # W3C credentialPlugin
 credentialIssuerLD:
-  $require: '@veramo/credential-ld#CredentialIssuerLD'
+  $require: '@sphereon/credential-ld#CredentialIssuerLD'
   $args:
     - suites:
-        - $require: '@veramo/credential-ld#VeramoEd25519Signature2018'
-        - $require: '@veramo/credential-ld#VeramoEcdsaSecp256k1RecoverySignature2020'
+        - $require: '@sphereon/credential-ld#VeramoEd25519Signature2018'
+        - $require: '@sphereon/credential-ld#VeramoEcdsaSecp256k1RecoverySignature2020'
       contextMaps:
         # The LdDefaultContext is a "catch-all" for now.
-        - $require: '@veramo/credential-ld?t=object#LdDefaultContexts'
+        - $require: '@sphereon/credential-ld?t=object#LdDefaultContexts'
         - $require: '@transmute/credentials-context?t=object#contexts'
         #  others should be included here
 
 # Agent
 agent:
-  $require: '@veramo/core#Agent'
+  $require: '@sphereon/core#Agent'
   $args:
     - schemaValidation: false
       plugins:
@@ -301,13 +301,13 @@ agent:
         - $ref: /didResolver
         - $ref: /didDiscovery
         - $ref: /messageHandler
-        - $require: '@veramo/did-comm#DIDComm'
-        - $require: '@veramo/credential-w3c#CredentialIssuer'
+        - $require: '@sphereon/did-comm#DIDComm'
+        - $require: '@sphereon/credential-w3c#CredentialIssuer'
         - $ref: /credentialIssuerLD
-        - $require: '@veramo/selective-disclosure#SelectiveDisclosure'
-        - $require: '@veramo/data-store#DataStore'
+        - $require: '@sphereon/selective-disclosure#SelectiveDisclosure'
+        - $require: '@sphereon/data-store#DataStore'
           $args:
             - $ref: /dbConnection
-        - $require: '@veramo/data-store#DataStoreORM'
+        - $require: '@sphereon/data-store#DataStoreORM'
           $args:
             - $ref: /dbConnection

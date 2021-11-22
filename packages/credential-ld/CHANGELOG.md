@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.1.0](https://github.com/uport-project/veramo/compare/v3.0.0...v3.1.0) (2021-11-12)
+# [3.1.900](https://github.com/uport-project/veramo/compare/v3.0.0...v3.1.900) (2021-11-12)
 
 
 ### Bug Fixes
@@ -70,7 +70,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # [1.1.0](https://github.com/uport-project/veramo/compare/v1.0.1...v1.1.0) (2021-01-26)
 
-**Note:** Version bump only for package @veramo/credential-w3c
+**Note:** Version bump only for package @sphereon/credential-w3c
 
 
 
@@ -78,4 +78,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 1.0.1 (2020-12-18)
 
-**Note:** Version bump only for package @veramo/credential-w3c
+**Note:** Version bump only for package @sphereon/credential-w3c

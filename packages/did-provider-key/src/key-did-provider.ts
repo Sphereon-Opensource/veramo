@@ -1,5 +1,5 @@
-import { IIdentifier, IKey, IService, IAgentContext, IKeyManager } from '@veramo/core'
-import { AbstractIdentifierProvider } from '@veramo/did-manager'
+import { IIdentifier, IKey, IService, IAgentContext, IKeyManager } from '@sphereon/core'
+import { AbstractIdentifierProvider } from '@sphereon/did-manager'
 import Multibase from 'multibase'
 import Multicodec from 'multicodec'
 
@@ -9,7 +9,7 @@ const debug = Debug('veramo:did-key:identifier-provider')
 type IContext = IAgentContext<IKeyManager>
 
 /**
- * {@link @veramo/did-manager#DIDManager} identifier provider for `did:key` identifiers
+ * {@link @sphereon/did-manager#DIDManager} identifier provider for `did:key` identifiers
  *
  * @alpha
  */

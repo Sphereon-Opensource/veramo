@@ -1,6 +1,6 @@
 /**
- * Provides a {@link @veramo/message-handler#MessageHandler | plugin} for the
- * {@link @veramo/core#Agent} that implements {@link @veramo/core#IMessageHandler} interface.
+ * Provides a {@link @sphereon/message-handler#MessageHandler | plugin} for the
+ * {@link @sphereon/core#Agent} that implements {@link @sphereon/core#IMessageHandler} interface.
  *
  * @packageDocumentation
  */

@@ -1,5 +1,5 @@
 import blessed, { Widgets } from 'blessed'
-import { UniqueVerifiableCredential } from '@veramo/data-store'
+import { UniqueVerifiableCredential } from '@sphereon/data-store'
 import { shortDate, shortDid } from './utils'
 import { ConfiguredAgent } from '../setup'
 import { styles } from './styles'

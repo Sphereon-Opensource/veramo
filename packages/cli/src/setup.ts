@@ -1,11 +1,11 @@
 import 'cross-fetch/polyfill'
 import yaml from 'yaml'
-import { IDataStore, IDIDManager, IMessageHandler, IKeyManager, IResolver, TAgent } from '@veramo/core'
-import { ICredentialIssuer } from '@veramo/credential-w3c'
-import { ISelectiveDisclosure } from '@veramo/selective-disclosure'
-import { IDIDComm } from '@veramo/did-comm'
-import { IDataStoreORM } from '@veramo/data-store'
-import { IDIDDiscovery } from '@veramo/did-discovery'
+import { IDataStore, IDIDManager, IMessageHandler, IKeyManager, IResolver, TAgent } from '@sphereon/core'
+import { ICredentialIssuer } from '@sphereon/credential-w3c'
+import { ISelectiveDisclosure } from '@sphereon/selective-disclosure'
+import { IDIDComm } from '@sphereon/did-comm'
+import { IDataStoreORM } from '@sphereon/data-store'
+import { IDIDDiscovery } from '@sphereon/did-discovery'
 
 const fs = require('fs')
 import { createAgentFromConfig } from './lib/agentCreator'

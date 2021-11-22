@@ -1,4 +1,4 @@
-import { IAgentContext, IKeyManager, IIdentifier, IKey, IService, IDIDManager } from '@veramo/core'
+import { IAgentContext, IKeyManager, IIdentifier, IKey, IService, IDIDManager } from '@sphereon/core'
 import { AbstractIdentifierProvider } from '../../packages/did-manager/src/index'
 import {
   DIDResolutionOptions,
@@ -8,7 +8,7 @@ import {
   ParsedDID,
   VerificationMethod,
 } from 'did-resolver'
-import { TAgent } from '@veramo/core/src'
+import { TAgent } from '@sphereon/core/src'
 import { _NormalizedVerificationMethod } from '../../packages/utils/src'
 
 /**

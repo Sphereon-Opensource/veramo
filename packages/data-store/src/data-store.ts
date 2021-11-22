@@ -12,7 +12,7 @@ import {
   VerifiablePresentation,
   schema,
   IDataStoreDeleteVerifiableCredentialArgs,
-} from '@veramo/core'
+} from '@sphereon/core'
 import { Message, createMessageEntity, createMessage } from './entities/message'
 import { Credential, createCredentialEntity } from './entities/credential'
 import { Claim } from './entities/claim'

@@ -1,5 +1,5 @@
-import { IIdentifier, IKey } from '@veramo/core'
-import { AbstractDIDStore } from '@veramo/did-manager'
+import { IIdentifier, IKey } from '@sphereon/core'
+import { AbstractDIDStore } from '@sphereon/did-manager'
 import { Identifier } from '../entities/identifier'
 import { Credential } from '../entities/credential'
 import { Key } from '../entities/key'

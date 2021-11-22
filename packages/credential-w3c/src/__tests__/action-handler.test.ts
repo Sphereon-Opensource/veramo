@@ -10,7 +10,7 @@ jest.mock('did-jwt-vc', () => {
   return mockDidJwtVc
 })
 
-import { IIdentifier, IKey, VerifiableCredential, W3CCredential, W3CPresentation } from '@veramo/core'
+import { IIdentifier, IKey, VerifiableCredential, W3CCredential, W3CPresentation } from '@sphereon/core'
 import { CredentialIssuer, IContext } from '../action-handler'
 
 const mockIdentifiers: IIdentifier[] = [
@@ -85,7 +85,7 @@ let agent = {
   verifyPresentationLD: jest.fn(),
 }
 
-describe('@veramo/credential-w3c', () => {
+describe('@sphereon/credential-w3c', () => {
   test.each(mockIdentifiers)('handles createVerifiableCredential', async (mockIdentifier) => {
     expect.assertions(3 * mockIdentifiers.length)
 

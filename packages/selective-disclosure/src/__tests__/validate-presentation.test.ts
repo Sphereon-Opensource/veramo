@@ -1,4 +1,4 @@
-import { VerifiableCredential, VerifiablePresentation } from '@veramo/core'
+import { VerifiableCredential, VerifiablePresentation } from '@sphereon/core'
 import { ISelectiveDisclosureRequest } from '../types'
 import { SelectiveDisclosure } from '../action-handler'
 
@@ -13,7 +13,7 @@ const context = {
   },
 }
 
-describe('@veramo/selective-disclosure-helper', () => {
+describe('@sphereon/selective-disclosure-helper', () => {
   it('should validate presentation for sdr', async () => {
     const sdr: ISelectiveDisclosureRequest = {
       issuer: 'did:example:123',

@@ -1,6 +1,6 @@
 import { SecretBox } from '../secret-box'
 
-describe('@veramo/kms-local', () => {
+describe('@sphereon/kms-local', () => {
   it('should encrypt and decrypt', async () => {
     const secretKey = await SecretBox.createSecretKey()
     const box = new SecretBox(secretKey)

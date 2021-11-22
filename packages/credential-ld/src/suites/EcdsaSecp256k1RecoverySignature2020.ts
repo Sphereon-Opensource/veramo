@@ -1,5 +1,5 @@
 import { RequiredAgentMethods, VeramoLdSignature } from "../ld-suites";
-import { DIDDocument, IAgentContext, IKey, TKeyType } from "@veramo/core";
+import { DIDDocument, IAgentContext, IKey, TKeyType } from "@sphereon/core";
 import {
   EcdsaSecp256k1RecoveryMethod2020,
   EcdsaSecp256k1RecoverySignature2020,
@@ -7,7 +7,7 @@ import {
 import { CredentialPayload } from 'did-jwt-vc'
 
 import * as u8a from 'uint8arrays'
-import { encodeJoseBlob } from '@veramo/utils'
+import { encodeJoseBlob } from '@sphereon/utils'
 
 export class VeramoEcdsaSecp256k1RecoverySignature2020 extends VeramoLdSignature {
   getSupportedVerificationType(): string {

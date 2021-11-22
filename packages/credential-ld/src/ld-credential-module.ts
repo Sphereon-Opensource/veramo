@@ -4,7 +4,7 @@ import {
   IResolver,
   VerifiableCredential,
   VerifiablePresentation,
-} from '@veramo/core'
+} from '@sphereon/core'
 import Debug from 'debug'
 import { CredentialPayload, PresentationPayload } from 'did-jwt-vc'
 import { extendContextLoader, purposes } from 'jsonld-signatures'

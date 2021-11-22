@@ -1,9 +1,9 @@
 /**
- * Provides a {@link @veramo/selective-disclosure#ISelectiveDisclosure | plugin} for the {@link @veramo/core#Agent}
- * that implements {@link @veramo/selective-disclosure#SelectiveDisclosure} interface.
+ * Provides a {@link @sphereon/selective-disclosure#ISelectiveDisclosure | plugin} for the {@link @sphereon/core#Agent}
+ * that implements {@link @sphereon/selective-disclosure#SelectiveDisclosure} interface.
  *
- * Provides a {@link @veramo/selective-disclosure#SdrMessageHandler | plugin} for the
- * {@link @veramo/message-handler#MessageHandler} that detects Selective Disclosure Request in a message
+ * Provides a {@link @sphereon/selective-disclosure#SdrMessageHandler | plugin} for the
+ * {@link @sphereon/message-handler#MessageHandler} that detects Selective Disclosure Request in a message
  *
  * @packageDocumentation
  */

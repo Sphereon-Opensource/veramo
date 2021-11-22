@@ -1,12 +1,12 @@
-import { IAgentContext, IMessageHandler } from '@veramo/core'
-import { Message, AbstractMessageHandler } from '@veramo/message-handler'
+import { IAgentContext, IMessageHandler } from '@sphereon/core'
+import { Message, AbstractMessageHandler } from '@sphereon/message-handler'
 import { blake2bHex } from 'blakejs'
 
 import Debug from 'debug'
 const debug = Debug('veramo:selective-disclosure:message-handler')
 
 /**
- * Identifies a {@link @veramo/core#IMessage} that represents a Selective Disclosure Request
+ * Identifies a {@link @sphereon/core#IMessage} that represents a Selective Disclosure Request
  *
  * @remarks See {@link https://github.com/uport-project/specs/blob/develop/messages/sharereq.md | Selective Disclosure Request}
  * @beta

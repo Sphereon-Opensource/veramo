@@ -1,5 +1,5 @@
 // import SignerProvider from 'ethjs-provider-signer'
-// import { DIDResolverPlugin } from '@veramo/did-resolver'
+// import { DIDResolverPlugin } from '@sphereon/did-resolver'
 // import { IdentifierProvider } from '../identifier-provider'
 // import { Identifier } from '../identifier'
 // import { createJWT, decodeJWT, verifyJWT } from 'did-jwt'
@@ -12,7 +12,7 @@ describe('dummy', () => {
   })
 })
 
-// describe('@veramo/did-provider-ethr', () => {
+// describe('@sphereon/did-provider-ethr', () => {
 // const infuraProjectId = '3586660d179141e3801c3895de1c2eba'
 // const rpcUrl = 'https://rinkeby.infura.io/v3/' + infuraProjectId
 // const resolver = new DIDResolverPlugin({ infuraProjectId })

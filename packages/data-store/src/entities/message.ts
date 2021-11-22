@@ -10,7 +10,7 @@ import {
   BeforeUpdate,
 } from 'typeorm'
 import { blake2bHex } from 'blakejs'
-import { IMessage } from '@veramo/core'
+import { IMessage } from '@sphereon/core'
 import { Identifier } from './identifier'
 import { Presentation, createPresentationEntity } from './presentation'
 import { Credential, createCredentialEntity } from './credential'

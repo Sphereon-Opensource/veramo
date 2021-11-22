@@ -1,5 +1,5 @@
 /**
- * Provides a {@link @veramo/did-discovery#IDIDDiscovery | plugin} for the {@link @veramo/core#Agent}
+ * Provides a {@link @sphereon/did-discovery#IDIDDiscovery | plugin} for the {@link @sphereon/core#Agent}
  *
  * @packageDocumentation
  */

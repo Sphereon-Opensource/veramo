@@ -1,4 +1,4 @@
-import { IMessage, IMetaData, VerifiableCredential, VerifiablePresentation } from '@veramo/core'
+import { IMessage, IMetaData, VerifiableCredential, VerifiablePresentation } from '@sphereon/core'
 
 export class Message implements IMessage {
   constructor(data?: { raw: string; metaData?: IMetaData[] }) {

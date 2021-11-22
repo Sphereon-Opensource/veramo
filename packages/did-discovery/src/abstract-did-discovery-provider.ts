@@ -1,8 +1,8 @@
-import { IAgentContext } from '@veramo/core'
+import { IAgentContext } from '@sphereon/core'
 import { IDIDDiscoveryDiscoverDidArgs, IDIDDiscoveryProviderResult } from './types'
 
 /**
- * An abstract class for the {@link @veramo/did-discovery#DIDDiscovery} providers
+ * An abstract class for the {@link @sphereon/did-discovery#DIDDiscovery} providers
  * @public
  */
 export abstract class AbstractDidDiscoveryProvider {

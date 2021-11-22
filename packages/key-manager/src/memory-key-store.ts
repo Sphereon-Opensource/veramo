@@ -1,4 +1,4 @@
-import { IKey } from '@veramo/core'
+import { IKey } from '@sphereon/core'
 import { AbstractKeyStore } from './abstract-key-store'
 import {
   AbstractPrivateKeyStore,
@@ -37,8 +37,8 @@ export class MemoryKeyStore extends AbstractKeyStore {
 
 /**
  * An implementation of {@link AbstractPrivateKeyStore} that holds everything in memory.
- * 
- * This is usable by {@link @veramo/kms-local} to hold the private key data.
+ *
+ * This is usable by {@link @sphereon/kms-local} to hold the private key data.
  */
 export class MemoryPrivateKeyStore extends AbstractPrivateKeyStore {
   private privateKeys: Record<string, ManagedPrivateKey> = {}

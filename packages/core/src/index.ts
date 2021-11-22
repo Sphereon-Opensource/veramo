@@ -1,5 +1,5 @@
 /**
- * Provides {@link @veramo/core#Agent} implementation and defines {@link @veramo/core#IResolver}, {@link @veramo/core#IDIDManager}, {@link @veramo/core#IKeyManager}, {@link @veramo/core#IDataStore}, {@link @veramo/core#IMessageHandler} plugin interfaces
+ * Provides {@link @sphereon/core#Agent} implementation and defines {@link @sphereon/core#IResolver}, {@link @sphereon/core#IDIDManager}, {@link @sphereon/core#IKeyManager}, {@link @sphereon/core#IDataStore}, {@link @sphereon/core#IMessageHandler} plugin interfaces
  *
  * @packageDocumentation
  */

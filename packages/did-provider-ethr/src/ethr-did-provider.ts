@@ -1,5 +1,5 @@
-import { IIdentifier, IKey, IService, IAgentContext, IKeyManager } from '@veramo/core'
-import { AbstractIdentifierProvider } from '@veramo/did-manager'
+import { IIdentifier, IKey, IService, IAgentContext, IKeyManager } from '@sphereon/core'
+import { AbstractIdentifierProvider } from '@sphereon/did-manager'
 import { Provider } from '@ethersproject/abstract-provider'
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { computePublicKey } from '@ethersproject/signing-key'
@@ -20,7 +20,7 @@ export function toEthereumAddress(hexPublicKey: string): string {
 }
 
 /**
- * {@link @veramo/did-manager#DIDManager} identifier provider for `did:ethr` identifiers
+ * {@link @sphereon/did-manager#DIDManager} identifier provider for `did:ethr` identifiers
  * @public
  */
 export class EthrDIDProvider extends AbstractIdentifierProvider {

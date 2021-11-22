@@ -5,7 +5,7 @@ import {
   IMessage,
   IDataStore,
   TAgent,
-} from '@veramo/core'
+} from '@sphereon/core'
 import { createConnection, Connection } from 'typeorm'
 import { DataStoreORM, IDataStoreORM } from '../data-store-orm'
 import { FindArgs, TCredentialColumns, TMessageColumns, TPresentationColumns } from '../types'
@@ -108,7 +108,7 @@ async function populateDB(agent: TAgent<IDataStore & IDataStoreORM>) {
   await agent.dataStoreSaveMessage({ message: m4 })
 }
 
-describe('@veramo/data-store queries', () => {
+describe('@sphereon/data-store queries', () => {
   let dbConnection: Promise<Connection>
   const databaseFile = './tmp/test-db2.sqlite'
 

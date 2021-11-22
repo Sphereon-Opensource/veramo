@@ -8,7 +8,7 @@ import {
   IDataStore,
   IKey,
   IIdentifier, VerifiableCredential, VerifiablePresentation, W3CPresentation,
-} from '@veramo/core'
+} from '@sphereon/core'
 
 import {
   createVerifiableCredentialJwt,
@@ -26,7 +26,7 @@ import { schema } from './'
 import Debug from 'debug'
 import { JWT } from 'did-jwt-vc/lib/types'
 import { Resolvable } from 'did-resolver'
-import { asArray } from "@veramo/utils";
+import { asArray } from "@sphereon/utils";
 
 const debug = Debug('veramo:w3c:action-handler')
 
@@ -72,7 +72,7 @@ export interface ICreateVerifiablePresentationArgs {
 
   /**
    * If this parameter is true, the resulting VerifiablePresentation is sent to the
-   * {@link @veramo/core#IDataStore | storage plugin} to be saved
+   * {@link @sphereon/core#IDataStore | storage plugin} to be saved
    */
   save?: boolean
 
@@ -119,7 +119,7 @@ export interface ICreateVerifiableCredentialArgs {
 
   /**
    * If this parameter is true, the resulting VerifiablePresentation is sent to the
-   * {@link @veramo/core#IDataStore | storage plugin} to be saved
+   * {@link @sphereon/core#IDataStore | storage plugin} to be saved
    */
   save?: boolean
 
@@ -196,7 +196,7 @@ export interface ICredentialIssuer extends IPluginMethodMap {
    * @param args - Arguments necessary to create the Presentation.
    * @param context - This reserved param is automatically added and handled by the framework, *do not override*
    *
-   * @returns - a promise that resolves to the {@link @veramo/core#VerifiablePresentation} that was requested or rejects with an error
+   * @returns - a promise that resolves to the {@link @sphereon/core#VerifiablePresentation} that was requested or rejects with an error
    * if there was a problem with the input or while getting the key to sign
    *
    * @remarks Please see {@link https://www.w3.org/TR/vc-data-model/#presentations | Verifiable Presentation data model }
@@ -213,7 +213,7 @@ export interface ICredentialIssuer extends IPluginMethodMap {
    * @param args - Arguments necessary to create the Presentation.
    * @param context - This reserved param is automatically added and handled by the framework, *do not override*
    *
-   * @returns - a promise that resolves to the {@link @veramo/core#VerifiableCredential} that was requested or rejects with an error
+   * @returns - a promise that resolves to the {@link @sphereon/core#VerifiableCredential} that was requested or rejects with an error
    * if there was a problem with the input or while getting the key to sign
    *
    * @remarks Please see {@link https://www.w3.org/TR/vc-data-model/#credentials | Verifiable Credential data model}

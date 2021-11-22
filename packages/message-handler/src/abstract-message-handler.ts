@@ -1,10 +1,10 @@
-import { IAgentContext } from '@veramo/core'
+import { IAgentContext } from '@sphereon/core'
 import { Message } from './message'
 
 export const unsupportedMessageTypeError = new Error('Unsupported message type')
 
 /**
- * An abstract class for creating {@link @veramo/message-handler#MessageHandler} plugins
+ * An abstract class for creating {@link @sphereon/message-handler#MessageHandler} plugins
  * @public
  */
 export abstract class AbstractMessageHandler {

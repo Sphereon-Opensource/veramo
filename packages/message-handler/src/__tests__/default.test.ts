@@ -1,4 +1,4 @@
-import { createAgent, IAgentContext, IMessageHandler } from '@veramo/core'
+import { createAgent, IAgentContext, IMessageHandler } from '@sphereon/core'
 import { MessageHandler } from '..'
 import { AbstractMessageHandler, Message } from '../../build'
 
@@ -10,7 +10,7 @@ class DummyHandler extends AbstractMessageHandler {
   }
 }
 
-describe('@veramo/message-handler', () => {
+describe('@sphereon/message-handler', () => {
   const a = 100
   it('should run a dummy test', () => {
     expect(a).toEqual(100)

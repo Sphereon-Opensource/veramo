@@ -1,7 +1,7 @@
 /**
- * Provides a {@link @veramo/did-comm#DIDComm | plugin} for the {@link @veramo/core#Agent} that implements
- * {@link @veramo/did-comm#IDIDComm} interface.  Provides a {@link @veramo/did-comm#DIDCommMessageHandler | plugin}
- * for the {@link @veramo/message-handler#MessageHandler} that decrypts messages.
+ * Provides a {@link @sphereon/did-comm#DIDComm | plugin} for the {@link @sphereon/core#Agent} that implements
+ * {@link @sphereon/did-comm#IDIDComm} interface.  Provides a {@link @sphereon/did-comm#DIDCommMessageHandler | plugin}
+ * for the {@link @sphereon/message-handler#MessageHandler} that decrypts messages.
  *
  * @packageDocumentation
  */

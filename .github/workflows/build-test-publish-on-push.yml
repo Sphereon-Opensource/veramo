@@ -63,7 +63,7 @@ jobs:
 
       - name: setup npm registry
         run: |
-          echo "@veramo:registry=https://registry.npmjs.org/" > .npmrc
+          echo "@sphereon:registry=https://registry.npmjs.org/" > .npmrc
           echo "registry=https://registry.npmjs.org/" >> .npmrc
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
           npm whoami
@@ -72,7 +72,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: yarn publish:latest
 
-      - name: publish @next when on next
+      - name: publish @3.1.900 when on next
         if: github.ref == 'refs/heads/next'
         run: yarn publish:next
 

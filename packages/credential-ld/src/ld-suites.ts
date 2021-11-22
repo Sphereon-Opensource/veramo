@@ -1,4 +1,4 @@
-import { IAgentContext, IKey, IKeyManager, IResolver, TKeyType } from '@veramo/core'
+import { IAgentContext, IKey, IKeyManager, IResolver, TKeyType } from '@sphereon/core'
 import { CredentialPayload, PresentationPayload } from 'did-jwt-vc'
 import { DIDDocument } from 'did-resolver/src/resolver'
 

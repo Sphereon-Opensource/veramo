@@ -4,9 +4,9 @@ import {
   IKeyManager,
   IPluginMethodMap,
   VerifiablePresentation,
-} from '@veramo/core'
-import { IDataStoreORM, UniqueVerifiableCredential } from '@veramo/data-store'
-import { ICredentialIssuer } from '@veramo/credential-w3c'
+} from '@sphereon/core'
+import { IDataStoreORM, UniqueVerifiableCredential } from '@sphereon/data-store'
+import { ICredentialIssuer } from '@sphereon/credential-w3c'
 
 /**
  * Used for requesting Credentials using Selective Disclosure.

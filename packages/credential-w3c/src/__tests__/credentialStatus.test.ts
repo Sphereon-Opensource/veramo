@@ -11,7 +11,7 @@ describe('did-comm', () => {
 // import { SimpleSigner, decodeJWT } from 'did-jwt'
 // import { Resolver } from 'did-resolver'
 // import { ActionSignW3cVp } from '../action-handler'
-// import { Credential } from '@veramo/core'
+// import { Credential } from '@sphereon/core'
 
 // const privateKey = 'a285ab66393c5fdda46d6fbad9e27fafd438254ab72ad5acb681a0e9f20f5d7b'
 // const signerAddress = '0x2036c6cd85692f0fb2c26e6c6b2eced9e4478dfd'
@@ -52,7 +52,7 @@ describe('did-comm', () => {
 //   },
 // }
 
-// describe('@veramo/credential-w3c', () => {
+// describe('@sphereon/credential-w3c', () => {
 //   // it('handles signing a presentation with credentialStatus', async () => {
 //   //   expect.assertions(1)
 

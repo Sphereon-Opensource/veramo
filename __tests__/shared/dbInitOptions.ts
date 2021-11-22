@@ -8,9 +8,9 @@ import {
   IDataStore,
   IMessageHandler,
   IResolver,
-} from '@veramo/core/src'
-import { IDataStoreORM } from '@veramo/data-store/src'
-import { ICredentialIssuer } from '@veramo/credential-w3c/src'
+} from '@sphereon/core/src'
+import { IDataStoreORM } from '@sphereon/data-store/src'
+import { ICredentialIssuer } from '@sphereon/credential-w3c/src'
 import { IDIDComm, IPackedDIDCommMessage } from '../../packages/did-comm/src'
 
 type ConfiguredAgent = TAgent<

@@ -1,5 +1,5 @@
 /**
- * Provides a {@link @veramo/remote-client#AgentRestClient | plugin} for the {@link @veramo/core#Agent} that
+ * Provides a {@link @sphereon/remote-client#AgentRestClient | plugin} for the {@link @sphereon/core#Agent} that
  * can proxy method execution over HTTPS
  *
  * @packageDocumentation

@@ -1,7 +1,7 @@
 /**
  * Provides a {@link https://github.com/jedisct1/libsodium.js | libsodium} backed
- * {@link @veramo/kms-local#KeyManagementSystem | key management system } and
- * {@link @veramo/kms-local#SecretBox | secret box } for the {@link @veramo/key-manager#KeyManager}
+ * {@link @sphereon/kms-local#KeyManagementSystem | key management system } and
+ * {@link @sphereon/kms-local#SecretBox | secret box } for the {@link @sphereon/key-manager#KeyManager}
  *
  * @packageDocumentation
  */

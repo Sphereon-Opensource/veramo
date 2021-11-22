@@ -1,5 +1,5 @@
-import { IAgentContext } from '@veramo/core'
-import { Message, AbstractMessageHandler } from '@veramo/message-handler'
+import { IAgentContext } from '@sphereon/core'
+import { Message, AbstractMessageHandler } from '@sphereon/message-handler'
 import parse = require('url-parse')
 
 import Debug from 'debug'

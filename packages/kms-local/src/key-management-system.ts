@@ -1,6 +1,6 @@
-import { TKeyType, IKey, ManagedKeyInfo, MinimalImportableKey, RequireOnly } from '@veramo/core'
-import { AbstractKeyManagementSystem, AbstractPrivateKeyStore } from '@veramo/key-manager'
-import { ManagedPrivateKey } from '@veramo/key-manager'
+import { TKeyType, IKey, ManagedKeyInfo, MinimalImportableKey, RequireOnly } from '@sphereon/core'
+import { AbstractKeyManagementSystem, AbstractPrivateKeyStore } from '@sphereon/key-manager'
+import { ManagedPrivateKey } from '@sphereon/key-manager'
 
 import { EdDSASigner, ES256KSigner } from 'did-jwt'
 import {

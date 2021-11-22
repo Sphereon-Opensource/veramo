@@ -1,5 +1,5 @@
 import { OpenAPIV3 } from 'openapi-types'
-import { IAgent } from '@veramo/core'
+import { IAgent } from '@sphereon/core'
 
 export const getOpenApiSchema = (
   agent: IAgent,

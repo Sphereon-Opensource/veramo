@@ -1,5 +1,5 @@
 import blessed, { Widgets } from 'blessed'
-import { IIdentifier } from '@veramo/core'
+import { IIdentifier } from '@sphereon/core'
 import { ConfiguredAgent } from '../setup'
 import { styles } from './styles'
 

@@ -1,7 +1,7 @@
 {
-  "name": "@veramo/did-provider-web",
+  "name": "@sphereon/did-provider-web",
   "description": "Veramo plugin that can enable creation and control of did:web identifiers.",
-  "version": "3.1.0",
+  "version": "3.1.900",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
@@ -9,8 +9,8 @@
     "extract-api": "yarn veramo dev extract-api"
   },
   "dependencies": {
-    "@veramo/core": "^3.1.0",
-    "@veramo/did-manager": "^3.1.0",
+    "@sphereon/core": "^3.1.900",
+    "@sphereon/did-manager": "^3.1.900",
     "debug": "^4.1.1"
   },
   "devDependencies": {

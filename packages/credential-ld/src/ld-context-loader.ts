@@ -3,7 +3,7 @@
  * that it unifies into a single Map to provide to the documentLoader within
  * the w3c credential module.
  */
-import { OrPromise, RecordLike } from "@veramo/utils";
+import { OrPromise, RecordLike } from "@sphereon/utils";
 import { ContextDoc } from "./types";
 
 export class LdContextLoader {

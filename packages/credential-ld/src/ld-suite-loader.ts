@@ -1,5 +1,5 @@
 import { VeramoLdSignature } from './ld-suites'
-import { TKeyType } from '@veramo/core'
+import { TKeyType } from '@sphereon/core'
 
 /**
  * Initializes a list of Veramo-wrapped LD Signature suites and exposes those to the Agent Module

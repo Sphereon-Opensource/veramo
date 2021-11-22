@@ -1,4 +1,4 @@
-import { DIDDocumentSection, IAgentPlugin, IResolver, schema } from '@veramo/core'
+import { DIDDocumentSection, IAgentPlugin, IResolver, schema } from '@sphereon/core'
 import {
   Resolver,
   DIDDocument,
@@ -31,7 +31,7 @@ export class DIDResolverPlugin implements IAgentPlugin {
     }
   }
 
-  /** {@inheritDoc @veramo/core#IResolver.resolveDid} */
+  /** {@inheritDoc @sphereon/core#IResolver.resolveDid} */
   async resolveDid({
     didUrl,
     options,
@@ -44,7 +44,7 @@ export class DIDResolverPlugin implements IAgentPlugin {
       accept: 'application/did+ld+json',
       ...options,
     }
-    
+
     // ensure the required fields are present, even if the resolver is not compliant
     const cannedResponse: DIDResolutionResult = {
       didDocumentMetadata: {},
@@ -53,14 +53,14 @@ export class DIDResolverPlugin implements IAgentPlugin {
     }
 
     const resolution = await this.didResolver.resolve(didUrl, resolverOptions)
-    
+
     return {
       ...cannedResponse,
       ...resolution,
     }
   }
 
-  /** {@inheritDoc @veramo/core#IResolver.getDIDComponentById} */
+  /** {@inheritDoc @sphereon/core#IResolver.getDIDComponentById} */
   async getDIDComponentById({
     didDocument,
     didUrl,

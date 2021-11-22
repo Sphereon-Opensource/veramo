@@ -1,10 +1,10 @@
 /**
- * {@link https://typeorm.io/ | TypeORM } backed plugins. {@link @veramo/core#Agent}
- * {@link @veramo/data-store#DataStore | plugin} that implements {@link @veramo/core#IDataStore } interface.
- * {@link @veramo/core#Agent} {@link @veramo/data-store#DataStoreORM | plugin} that implements
- * {@link @veramo/data-store#IDataStoreORM} interface. Provides {@link @veramo/data-store#KeyStore} for
- * {@link @veramo/key-manager#KeyManager} and {@link @veramo/data-store#DIDStore} for
- * {@link @veramo/did-manager#DIDManager}
+ * {@link https://typeorm.io/ | TypeORM } backed plugins. {@link @sphereon/core#Agent}
+ * {@link @sphereon/data-store#DataStore | plugin} that implements {@link @sphereon/core#IDataStore } interface.
+ * {@link @sphereon/core#Agent} {@link @sphereon/data-store#DataStoreORM | plugin} that implements
+ * {@link @sphereon/data-store#IDataStoreORM} interface. Provides {@link @sphereon/data-store#KeyStore} for
+ * {@link @sphereon/key-manager#KeyManager} and {@link @sphereon/data-store#DIDStore} for
+ * {@link @sphereon/did-manager#DIDManager}
  *
  * @packageDocumentation
  */

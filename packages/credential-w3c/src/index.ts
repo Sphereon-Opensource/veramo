@@ -1,9 +1,9 @@
 /**
- * Provides a {@link @veramo/credential-w3c#CredentialIssuer | plugin} for the {@link @veramo/core#Agent} that implements
- * {@link @veramo/credential-w3c#ICredentialIssuer} interface.
+ * Provides a {@link @sphereon/credential-w3c#CredentialIssuer | plugin} for the {@link @sphereon/core#Agent} that implements
+ * {@link @sphereon/credential-w3c#ICredentialIssuer} interface.
  *
- * Provides a {@link @veramo/credential-w3c#W3cMessageHandler | plugin} for the
- * {@link @veramo/message-handler#MessageHandler} that verifies Credentials and Presentations in a message.
+ * Provides a {@link @sphereon/credential-w3c#W3cMessageHandler | plugin} for the
+ * {@link @sphereon/message-handler#MessageHandler} that verifies Credentials and Presentations in a message.
  *
  * @packageDocumentation
  */

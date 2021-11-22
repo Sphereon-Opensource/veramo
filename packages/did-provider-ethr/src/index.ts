@@ -1,6 +1,6 @@
 /**
- * Provides `did:ethr` {@link @veramo/did-provider-ethr#EthrDIDProvider | identifier provider }
- * for the {@link @veramo/did-manager#DIDManager}
+ * Provides `did:ethr` {@link @sphereon/did-provider-ethr#EthrDIDProvider | identifier provider }
+ * for the {@link @sphereon/did-manager#DIDManager}
  *
  * @packageDocumentation
  */

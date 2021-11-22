@@ -1,6 +1,6 @@
 /**
- * Provides a {@link @veramo/key-manager#KeyManager | plugin} for the {@link @veramo/core#Agent}
- * that implements {@link @veramo/core#IKeyManager} interface
+ * Provides a {@link @sphereon/key-manager#KeyManager | plugin} for the {@link @sphereon/core#Agent}
+ * that implements {@link @sphereon/core#IKeyManager} interface
  *
  * @packageDocumentation
  */

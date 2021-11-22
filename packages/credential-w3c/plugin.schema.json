@@ -103,7 +103,7 @@
             },
             "save": {
               "type": "boolean",
-              "description": "If this parameter is true, the resulting VerifiablePresentation is sent to the\n {@link  @veramo/core#IDataStore | storage plugin }  to be saved"
+              "description": "If this parameter is true, the resulting VerifiablePresentation is sent to the\n {@link  @sphereon/core#IDataStore | storage plugin }  to be saved"
             },
             "proofFormat": {
               "$ref": "#/components/schemas/ProofFormat",
@@ -280,7 +280,7 @@
             },
             "save": {
               "type": "boolean",
-              "description": "If this parameter is true, the resulting VerifiablePresentation is sent to the\n {@link  @veramo/core#IDataStore | storage plugin }  to be saved"
+              "description": "If this parameter is true, the resulting VerifiablePresentation is sent to the\n {@link  @sphereon/core#IDataStore | storage plugin }  to be saved"
             },
             "challenge": {
               "type": "string",

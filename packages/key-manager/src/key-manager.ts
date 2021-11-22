@@ -17,7 +17,7 @@ import {
   TKeyType,
   MinimalImportableKey,
   ManagedKeyInfo,
-} from '@veramo/core'
+} from '@sphereon/core'
 import * as u8a from 'uint8arrays'
 import { JWE, createAnonDecrypter, createAnonEncrypter, createJWE, decryptJWE, ECDH } from 'did-jwt'
 import { arrayify, hexlify } from '@ethersproject/bytes'
@@ -28,7 +28,7 @@ import Debug from 'debug'
 const debug = Debug('veramo:key-manager')
 
 /**
- * Agent plugin that provides {@link @veramo/core#IKeyManager} methods
+ * Agent plugin that provides {@link @sphereon/core#IKeyManager} methods
  * @public
  */
 export class KeyManager implements IAgentPlugin {
@@ -69,12 +69,12 @@ export class KeyManager implements IAgentPlugin {
     return kms
   }
 
-  /** {@inheritDoc @veramo/core#IKeyManager.keyManagerGetKeyManagementSystems} */
+  /** {@inheritDoc @sphereon/core#IKeyManager.keyManagerGetKeyManagementSystems} */
   async keyManagerGetKeyManagementSystems(): Promise<Array<string>> {
     return Object.keys(this.kms)
   }
 
-  /** {@inheritDoc @veramo/core#IKeyManager.keyManagerCreate} */
+  /** {@inheritDoc @sphereon/core#IKeyManager.keyManagerCreate} */
   async keyManagerCreate(args: IKeyManagerCreateArgs): Promise<ManagedKeyInfo> {
     const kms = this.getKms(args.kms)
     const partialKey = await kms.createKey({ type: args.type, meta: args.meta })
@@ -89,12 +89,12 @@ export class KeyManager implements IAgentPlugin {
     return key
   }
 
-  /** {@inheritDoc @veramo/core#IKeyManager.keyManagerGet} */
+  /** {@inheritDoc @sphereon/core#IKeyManager.keyManagerGet} */
   async keyManagerGet({ kid }: IKeyManagerGetArgs): Promise<IKey> {
     return this.store.get({ kid })
   }
 
-  /** {@inheritDoc @veramo/core#IKeyManager.keyManagerDelete} */
+  /** {@inheritDoc @sphereon/core#IKeyManager.keyManagerDelete} */
   async keyManagerDelete({ kid }: IKeyManagerDeleteArgs): Promise<boolean> {
     const key = await this.store.get({ kid })
     const kms = this.getKms(key.kms)
@@ -102,7 +102,7 @@ export class KeyManager implements IAgentPlugin {
     return this.store.delete({ kid })
   }
 
-  /** {@inheritDoc @veramo/core#IKeyManager.keyManagerImport} */
+  /** {@inheritDoc @sphereon/core#IKeyManager.keyManagerImport} */
   async keyManagerImport(key: MinimalImportableKey): Promise<ManagedKeyInfo> {
     const kms = this.getKms(key.kms)
     const managedKey = await kms.importKey(key)
@@ -112,7 +112,7 @@ export class KeyManager implements IAgentPlugin {
     return importedKey
   }
 
-  /** {@inheritDoc @veramo/core#IKeyManager.keyManagerEncryptJWE} */
+  /** {@inheritDoc @sphereon/core#IKeyManager.keyManagerEncryptJWE} */
   async keyManagerEncryptJWE({ kid, to, data }: IKeyManagerEncryptJWEArgs): Promise<string> {
     // TODO: if a sender `key` is provided, then it should be used to create an authenticated encrypter
     // const key = await this.store.get({ kid })
@@ -134,7 +134,7 @@ export class KeyManager implements IAgentPlugin {
     return JSON.stringify(result)
   }
 
-  /** {@inheritDoc @veramo/core#IKeyManager.keyManagerDecryptJWE} */
+  /** {@inheritDoc @sphereon/core#IKeyManager.keyManagerDecryptJWE} */
   async keyManagerDecryptJWE({ kid, data }: IKeyManagerDecryptJWEArgs): Promise<string> {
     const jwe: JWE = JSON.parse(data)
     const ecdh = this.createX25519ECDH(kid)
@@ -147,7 +147,7 @@ export class KeyManager implements IAgentPlugin {
     return result
   }
 
-  /** {@inheritDoc @veramo/core#IKeyManager.keyManagerSignJWT} */
+  /** {@inheritDoc @sphereon/core#IKeyManager.keyManagerSignJWT} */
   async keyManagerSignJWT({ kid, data }: IKeyManagerSignJWTArgs): Promise<string> {
     if (typeof data === 'string') {
       return this.keyManagerSign({ keyRef: kid, data, encoding: 'utf-8' })
@@ -157,7 +157,7 @@ export class KeyManager implements IAgentPlugin {
     }
   }
 
-  /** {@inheritDoc @veramo/core#IKeyManager.keyManagerSign} */
+  /** {@inheritDoc @sphereon/core#IKeyManager.keyManagerSign} */
   async keyManagerSign(args: IKeyManagerSignArgs): Promise<string> {
     const { keyRef, data, algorithm, encoding, ...extras } = { encoding: 'utf-8', ...args }
     const keyInfo: ManagedKeyInfo = await this.store.get({ kid: keyRef })
@@ -176,7 +176,7 @@ export class KeyManager implements IAgentPlugin {
     return kms.sign({ keyRef: keyInfo, algorithm, data: dataBytes, ...extras })
   }
 
-  /** {@inheritDoc @veramo/core#IKeyManager.keyManagerSignEthTX} */
+  /** {@inheritDoc @sphereon/core#IKeyManager.keyManagerSignEthTX} */
   async keyManagerSignEthTX({ kid, transaction }: IKeyManagerSignEthTXArgs): Promise<string> {
     const { v, r, s, from, ...tx } = <any>transaction
     if (typeof from === 'string') {
@@ -197,7 +197,7 @@ export class KeyManager implements IAgentPlugin {
     return this.keyManagerSign({ keyRef: kid, data, algorithm, encoding: 'base16' })
   }
 
-  /** {@inheritDoc @veramo/core#IKeyManager.keyManagerSharedKey} */
+  /** {@inheritDoc @sphereon/core#IKeyManager.keyManagerSharedKey} */
   async keyManagerSharedSecret(args: IKeyManagerSharedSecretArgs): Promise<string> {
     const { secretKeyRef, publicKey } = args
     const myKeyRef = await this.store.get({ kid: secretKeyRef })

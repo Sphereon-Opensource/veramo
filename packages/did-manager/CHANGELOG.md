@@ -3,9 +3,9 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.1.0](https://github.com/uport-project/veramo/compare/v3.0.0...v3.1.0) (2021-11-12)
+# [3.1.900](https://github.com/uport-project/veramo/compare/v3.0.0...v3.1.900) (2021-11-12)
 
-**Note:** Version bump only for package @veramo/did-manager
+**Note:** Version bump only for package @sphereon/did-manager
 
 
 
@@ -25,7 +25,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **key-manager:** `keyManagetGet` no longer returns private key data
 * **key-manager:** `KeyStore` no longer requires a `SecretBox`
 * **key-manager:** `KeyManagementSystem` needs a `PrivateKeyStore`
-* **key-manager:** @veramo/cli configuration version update to 3.0
+* **key-manager:** @sphereon/cli configuration version update to 3.0
 
 If you're already working with Veramo and wish to upgrade existing agents to veramo 3.0, you'll have to make some changes to your configuration, depending on how you're using the framework.
 
@@ -37,7 +37,7 @@ It boils down to these 3 steps:
 
 * feat(key-manager): move private key storage to kms-local
 * **data-store:** database needs migrations for initialization. See #679 #676
-The `@veramo/data-store` package relies on `typeorm` as a database abstraction.
+The `@sphereon/data-store` package relies on `typeorm` as a database abstraction.
 Typeorm has a connection flag `synchonize` which bootstraps the database along with schema and relations based on a set of `Entities` (annotated typescript classes).
 This is very handy for fast development iterations but it is **not recommended for production** use because there is too much ambiguity possible when the `Entities` change, and there is a risk of data loss.
 The recommended way to do things is to use the `migrations` mechanism. It allows you to migrate to new database schemas when necessary, and even customize the database to your own needs.
@@ -50,7 +50,7 @@ The recommended way to do things is to use the `migrations` mechanism. It allows
 
 # [2.1.0](https://github.com/uport-project/veramo/compare/v2.0.1...v2.1.0) (2021-08-11)
 
-**Note:** Version bump only for package @veramo/did-manager
+**Note:** Version bump only for package @sphereon/did-manager
 
 
 
@@ -80,7 +80,7 @@ The recommended way to do things is to use the `migrations` mechanism. It allows
 
 # [1.1.0](https://github.com/uport-project/veramo/compare/v1.0.1...v1.1.0) (2021-01-26)
 
-**Note:** Version bump only for package @veramo/did-manager
+**Note:** Version bump only for package @sphereon/did-manager
 
 
 
@@ -88,4 +88,4 @@ The recommended way to do things is to use the `migrations` mechanism. It allows
 
 ## 1.0.1 (2020-12-18)
 
-**Note:** Version bump only for package @veramo/did-manager
+**Note:** Version bump only for package @sphereon/did-manager

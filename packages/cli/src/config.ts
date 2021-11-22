@@ -1,6 +1,6 @@
 import 'cross-fetch/polyfill'
 import { program } from 'commander'
-import { SecretBox } from '@veramo/kms-local'
+import { SecretBox } from '@sphereon/kms-local'
 import { getAgent, getConfig } from './setup'
 const fs = require('fs')
 const { dirname } = require('path')
@@ -54,7 +54,7 @@ config
   
         ${dbEncryptionKey}
   
-        You can use this key with @veramo/kms-local#SecretBox
+        You can use this key with @sphereon/kms-local#SecretBox
         or replace the default agent.yml 'dbEncryptionKey' constant
         `)
       }

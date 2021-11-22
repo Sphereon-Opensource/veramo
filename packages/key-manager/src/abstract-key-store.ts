@@ -1,4 +1,4 @@
-import { IKey, ManagedKeyInfo } from '@veramo/core'
+import { IKey, ManagedKeyInfo } from '@sphereon/core'
 
 export abstract class AbstractKeyStore {
   abstract import(args: Partial<IKey>): Promise<boolean>

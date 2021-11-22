@@ -1,5 +1,5 @@
-import { IAgentContext, IDIDManager, IKeyManager } from '@veramo/core'
-import { AbstractMessageHandler, Message } from '@veramo/message-handler'
+import { IAgentContext, IDIDManager, IKeyManager } from '@sphereon/core'
+import { AbstractMessageHandler, Message } from '@sphereon/message-handler'
 import Debug from 'debug'
 import { IDIDComm } from './types/IDIDComm'
 const debug = Debug('veramo:did-comm:message-handler')
@@ -7,7 +7,7 @@ const debug = Debug('veramo:did-comm:message-handler')
 type IContext = IAgentContext<IDIDManager & IKeyManager & IDIDComm>
 
 /**
- * A plugin for the {@link @veramo/message-handler#MessageHandler} that decrypts DIDComm messages.
+ * A plugin for the {@link @sphereon/message-handler#MessageHandler} that decrypts DIDComm messages.
  * @beta
  */
 export class DIDCommMessageHandler extends AbstractMessageHandler {

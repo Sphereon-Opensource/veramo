@@ -1,7 +1,7 @@
-import { IIdentifier, IKey, IService, IAgentContext, IKeyManager } from '@veramo/core'
+import { IIdentifier, IKey, IService, IAgentContext, IKeyManager } from '@sphereon/core'
 
 /**
- * An abstract class for the {@link @veramo/did-manager#DIDManager} identifier providers
+ * An abstract class for the {@link @sphereon/did-manager#DIDManager} identifier providers
  * @public
  */
 export abstract class AbstractIdentifierProvider {

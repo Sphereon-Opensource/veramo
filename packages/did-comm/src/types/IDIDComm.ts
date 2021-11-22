@@ -6,7 +6,7 @@ import {
   IMessageHandler,
   IPluginMethodMap,
   IResolver,
-} from '@veramo/core'
+} from '@sphereon/core'
 import {
   IPackDIDCommMessageArgs,
   ISendDIDCommMessageArgs,
@@ -16,7 +16,7 @@ import {
 import { DIDCommMessageMediaType, IPackedDIDCommMessage, IUnpackedDIDCommMessage } from './message-types'
 
 /**
- * DID Comm plugin interface for {@link @veramo/core#Agent}
+ * DID Comm plugin interface for {@link @sphereon/core#Agent}
  * @beta
  */
 export interface IDIDComm extends IPluginMethodMap {
@@ -38,10 +38,10 @@ export interface IDIDComm extends IPluginMethodMap {
    *   * args.message - {@link IDIDCommMessage} - the message to be packed
    *   * args.packing - {@link DIDCommMessagePacking} - the packing method
    *   * args.keyRef - Optional - string - either an `id` of a {@link did-resolver#VerificationMethod}
-   *     `kid` of a {@link @veramo/core#IKey} that will be used when `packing` is `jws` or `authcrypt`.
+   *     `kid` of a {@link @sphereon/core#IKey} that will be used when `packing` is `jws` or `authcrypt`.
    *
-   * @param context - This method requires an agent that also has {@link @veramo/core#IDIDManager},
-   *   {@link @veramo/core#IKeyManager} and {@link @veramo/core#IResolver} plugins in use.
+   * @param context - This method requires an agent that also has {@link @sphereon/core#IDIDManager},
+   *   {@link @sphereon/core#IKeyManager} and {@link @sphereon/core#IResolver} plugins in use.
    *   When calling this method, the `context` is supplied automatically by the framework.
    *
    * @returns a Promise that resolves to an object containing the serialized packed `message` string
@@ -58,8 +58,8 @@ export interface IDIDComm extends IPluginMethodMap {
    * {@link DIDCommMessagePacking} used to pack it.
    *
    * @param args - an object containing the serialized message to be unpacked
-   * @param context - This method requires an agent that also has {@link @veramo/core#IDIDManager},
-   *   {@link @veramo/core#IKeyManager} and {@link @veramo/core#IResolver} plugins in use.
+   * @param context - This method requires an agent that also has {@link @sphereon/core#IDIDManager},
+   *   {@link @sphereon/core#IKeyManager} and {@link @sphereon/core#IResolver} plugins in use.
    *   When calling this method, the `context` is supplied automatically by the framework.
    *
    * @returns a Promise that resolves to an object containing
@@ -82,7 +82,7 @@ export interface IDIDComm extends IPluginMethodMap {
    *
    * @param args - An object containing the message, recipient information and optional
    * information about the transport that should be used.
-   * @param context - This method requires an agent that also has {@link @veramo/core#IResolver}
+   * @param context - This method requires an agent that also has {@link @sphereon/core#IResolver}
    * plugins in use. When calling this method, the `context` is supplied automatically by the framework.
    *
    * @returns The transport id that was used to send the message. It throws an error in case something

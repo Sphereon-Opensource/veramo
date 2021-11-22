@@ -1,6 +1,6 @@
-import { IAgent } from '@veramo/core'
+import { IAgent } from '@sphereon/core'
 import { Request, Router } from 'express'
-import { getOpenApiSchema } from '@veramo/remote-client'
+import { getOpenApiSchema } from '@sphereon/remote-client'
 import { RequestWithAgent } from './request-agent-router'
 
 /**
@@ -38,7 +38,7 @@ export interface ApiSchemaRouterOptions {
 }
 
 /**
- * Creates a router that exposes {@link @veramo/core#Agent} OpenAPI schema
+ * Creates a router that exposes {@link @sphereon/core#Agent} OpenAPI schema
  *
  * @param options - Initialization option
  * @returns Expressjs router

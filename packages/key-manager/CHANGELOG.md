@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.1.0](https://github.com/uport-project/veramo/compare/v3.0.0...v3.1.0) (2021-11-12)
+# [3.1.900](https://github.com/uport-project/veramo/compare/v3.0.0...v3.1.900) (2021-11-12)
 
 
 ### Features
@@ -33,7 +33,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **key-manager:** `keyManagetGet` no longer returns private key data
 * **key-manager:** `KeyStore` no longer requires a `SecretBox`
 * **key-manager:** `KeyManagementSystem` needs a `PrivateKeyStore`
-* **key-manager:** @veramo/cli configuration version update to 3.0
+* **key-manager:** @sphereon/cli configuration version update to 3.0
 
 If you're already working with Veramo and wish to upgrade existing agents to veramo 3.0, you'll have to make some changes to your configuration, depending on how you're using the framework.
 
@@ -51,7 +51,7 @@ It boils down to these 3 steps:
 
 # [2.1.0](https://github.com/uport-project/veramo/compare/v2.0.1...v2.1.0) (2021-08-11)
 
-**Note:** Version bump only for package @veramo/key-manager
+**Note:** Version bump only for package @sphereon/key-manager
 
 
 
@@ -75,7 +75,7 @@ It boils down to these 3 steps:
 
 ### BREAKING CHANGES
 
-* **kms-local:** `@veramo/kms-local-react-native` is no more. On react-native, please use `@veramo/kms-local` instead, combined with `@ethersproject/shims`
+* **kms-local:** `@sphereon/kms-local-react-native` is no more. On react-native, please use `@sphereon/kms-local` instead, combined with `@ethersproject/shims`
 
 
 
@@ -96,7 +96,7 @@ It boils down to these 3 steps:
 
 # [1.1.0](https://github.com/uport-project/veramo/compare/v1.0.1...v1.1.0) (2021-01-26)
 
-**Note:** Version bump only for package @veramo/key-manager
+**Note:** Version bump only for package @sphereon/key-manager
 
 
 
@@ -104,4 +104,4 @@ It boils down to these 3 steps:
 
 ## 1.0.1 (2020-12-18)
 
-**Note:** Version bump only for package @veramo/key-manager
+**Note:** Version bump only for package @sphereon/key-manager

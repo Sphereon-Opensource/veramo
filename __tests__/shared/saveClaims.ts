@@ -2,7 +2,7 @@ import { TAgent, IDIDManager, IIdentifier, IDataStore, IMessageHandler } from '.
 import { ICredentialIssuer } from '../../packages/credential-w3c/src'
 import { ISelectiveDisclosure } from '../../packages/selective-disclosure/src'
 import { IDataStoreORM } from '../../packages/data-store/src'
-import { FindCredentialsArgs } from '@veramo/data-store'
+import { FindCredentialsArgs } from '@sphereon/data-store'
 
 type ConfiguredAgent = TAgent<
   IDIDManager & ICredentialIssuer & IDataStoreORM & IDataStore & IMessageHandler & ISelectiveDisclosure

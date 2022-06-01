@@ -1,4 +1,4 @@
-import program from 'commander'
+import { program } from 'commander'
 import inquirer from 'inquirer'
 
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'))
@@ -9,6 +9,7 @@ import './presentation'
 import './explore'
 import './sdr'
 import './message'
+import './discover'
 import './version'
 import './execute'
 import './server'

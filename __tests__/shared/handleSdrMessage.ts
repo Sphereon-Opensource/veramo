@@ -1,7 +1,13 @@
-import { TAgent, IDIDManager, IIdentifier, IDataStore, IMessageHandler } from '../../packages/core/src'
+import {
+  IDataStore,
+  IDataStoreORM,
+  IDIDManager,
+  IIdentifier,
+  IMessageHandler,
+  TAgent,
+} from '../../packages/core/src'
 import { ICredentialIssuer } from '../../packages/credential-w3c/src'
 import { ISelectiveDisclosure, SelectiveDisclosure } from '../../packages/selective-disclosure/src'
-import { IDataStoreORM } from '../../packages/data-store/src'
 
 type ConfiguredAgent = TAgent<
   IDIDManager & ICredentialIssuer & IDataStoreORM & IDataStore & IMessageHandler & ISelectiveDisclosure
@@ -19,8 +25,8 @@ export default (testContext: {
     let originalRequestSender: string
     let sdr: SelectiveDisclosure
 
-    beforeAll(() => {
-      testContext.setup()
+    beforeAll(async () => {
+      await testContext.setup()
       agent = testContext.getAgent()
     })
     afterAll(testContext.tearDown)
@@ -117,7 +123,8 @@ export default (testContext: {
         },
       })
 
-      expect(credentials[0].credentials[0]).toHaveProperty('proof.jwt')
+      expect(credentials[0].credentials[0]).toHaveProperty('hash')
+      expect(credentials[0].credentials[0]).toHaveProperty('verifiableCredential.proof')
     })
 
     it('should create verifiable presentation', async () => {
@@ -138,7 +145,7 @@ export default (testContext: {
           '@context': ['https://www.w3.org/2018/credentials/v1'],
           type: ['VerifiablePresentation'],
           issuanceDate: new Date().toISOString(),
-          verifiableCredential: credentials[0].credentials,
+          verifiableCredential: credentials[0].credentials.map((c) => c.verifiableCredential),
         },
         proofFormat: 'jwt',
         save: true,

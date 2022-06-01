@@ -1,24 +1,21 @@
 import {
   Agent,
-  VerifiableCredential,
-  VerifiablePresentation,
-  IMessage,
-  IDataStore,
-  TAgent,
-} from '@veramo/core'
-import { createConnection, Connection } from 'typeorm'
-import { DataStoreORM, IDataStoreORM } from '../data-store-orm'
-import {
   FindArgs,
-  TClaimsColumns,
+  IDataStore,
+  IDataStoreORM,
+  IMessage,
+  TAgent,
   TCredentialColumns,
   TMessageColumns,
   TPresentationColumns,
-  TIdentifiersColumns,
-} from '../types'
+  VerifiableCredential,
+  VerifiablePresentation,
+} from '../../../core/src'
+import { Connection, createConnection } from 'typeorm'
+import { DataStoreORM } from '../data-store-orm'
 import { DataStore } from '../data-store'
 import { Entities } from '../index'
-import fs from 'fs'
+import * as fs from 'fs'
 
 const did1 = 'did:test:111'
 const did2 = 'did:test:222'
@@ -115,9 +112,9 @@ async function populateDB(agent: TAgent<IDataStore & IDataStoreORM>) {
   await agent.dataStoreSaveMessage({ message: m4 })
 }
 
-describe('@veramo/data-store entities', () => {
+describe('@veramo/data-store queries', () => {
   let dbConnection: Promise<Connection>
-  const databaseFile = './test-db2.sqlite'
+  const databaseFile = './tmp/test-db2.sqlite'
 
   function makeAgent(context?: Record<string, any>): TAgent<IDataStore & IDataStoreORM> {
     //@ts-ignore
@@ -163,19 +160,19 @@ describe('@veramo/data-store entities', () => {
     let count = await makeAgent().dataStoreORMGetVerifiablePresentationsCount(args)
     expect(count).toBe(1)
     // search when authenticated as the issuer
-    let authenticatedDid = did1
+    let authorizedDID = did1
 
-    presentations = await makeAgent({ authenticatedDid }).dataStoreORMGetVerifiablePresentations(args)
+    presentations = await makeAgent({ authorizedDID }).dataStoreORMGetVerifiablePresentations(args)
     expect(presentations.length).toBe(1)
-    count = await makeAgent({ authenticatedDid }).dataStoreORMGetVerifiablePresentationsCount(args)
+    count = await makeAgent({ authorizedDID }).dataStoreORMGetVerifiablePresentationsCount(args)
     expect(count).toBe(1)
 
     // search when authenticated as another did
-    authenticatedDid = did3
+    authorizedDID = did3
 
-    presentations = await makeAgent({ authenticatedDid }).dataStoreORMGetVerifiablePresentations(args)
+    presentations = await makeAgent({ authorizedDID }).dataStoreORMGetVerifiablePresentations(args)
     expect(presentations.length).toBe(0)
-    count = await makeAgent({ authenticatedDid }).dataStoreORMGetVerifiablePresentationsCount(args)
+    count = await makeAgent({ authorizedDID }).dataStoreORMGetVerifiablePresentationsCount(args)
     expect(count).toBe(0)
   })
 
@@ -207,11 +204,11 @@ describe('@veramo/data-store entities', () => {
         },
       ],
     }
-    const authenticatedDid = did1
+    const authorizedDID = did1
 
-    const messages = await makeAgent({ authenticatedDid }).dataStoreORMGetMessages(args)
+    const messages = await makeAgent({ authorizedDID }).dataStoreORMGetMessages(args)
     expect(messages.length).toBe(3)
-    const count = await makeAgent({ authenticatedDid }).dataStoreORMGetMessagesCount(args)
+    const count = await makeAgent({ authorizedDID }).dataStoreORMGetMessagesCount(args)
     expect(count).toBe(3)
   })
 
@@ -268,11 +265,11 @@ describe('@veramo/data-store entities', () => {
     expect(count).toBe(3)
 
     const credentials2 = await makeAgent({
-      authenticatedDid: did3,
+      authorizedDID: did3,
     }).dataStoreORMGetVerifiableCredentialsByClaims({})
     expect(credentials2.length).toBe(0)
     const count2 = await makeAgent({
-      authenticatedDid: did3,
+      authorizedDID: did3,
     }).dataStoreORMGetVerifiableCredentialsByClaimsCount({})
     expect(count2).toBe(0)
   })
@@ -288,18 +285,16 @@ describe('@veramo/data-store entities', () => {
       ],
     }
 
-    let presentations = await makeAgent({ authenticatedDid: did1 }).dataStoreORMGetVerifiablePresentations(
-      args,
-    )
+    let presentations = await makeAgent({ authorizedDID: did1 }).dataStoreORMGetVerifiablePresentations(args)
     expect(presentations.length).toBe(1)
 
-    presentations = await makeAgent({ authenticatedDid: did2 }).dataStoreORMGetVerifiablePresentations(args)
+    presentations = await makeAgent({ authorizedDID: did2 }).dataStoreORMGetVerifiablePresentations(args)
     expect(presentations.length).toBe(1)
 
-    presentations = await makeAgent({ authenticatedDid: did4 }).dataStoreORMGetVerifiablePresentations(args)
+    presentations = await makeAgent({ authorizedDID: did4 }).dataStoreORMGetVerifiablePresentations(args)
     expect(presentations.length).toBe(1)
 
-    presentations = await makeAgent({ authenticatedDid: did3 }).dataStoreORMGetVerifiablePresentations(args)
+    presentations = await makeAgent({ authorizedDID: did3 }).dataStoreORMGetVerifiablePresentations(args)
     expect(presentations.length).toBe(0)
   })
 
@@ -393,7 +388,8 @@ describe('@veramo/data-store entities', () => {
     }
 
     const presentations = await agent.dataStoreORMGetVerifiablePresentations(args)
-    expect(presentations[0].verifiablePresentation.verifiableCredential[0].id).toEqual('vc6')
+    const cred0 = presentations[0].verifiablePresentation.verifiableCredential?.[0] as VerifiableCredential
+    expect(cred0.id).toEqual('vc6')
   })
 
   it('should query identifiers', async () => {

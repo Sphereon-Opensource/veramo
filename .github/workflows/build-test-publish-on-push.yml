@@ -5,6 +5,7 @@ on:
     branches:
       - 'main'
       - 'next'
+      - 'unstable'
 
 jobs:
   build-test-publish:
@@ -15,30 +16,47 @@ jobs:
       GH_USER: ${{secrets.GH_USER}}
       GH_EMAIL: ${{secrets.GH_EMAIL}}
     runs-on: ubuntu-18.04
+    services:
+      postgres:
+        image: postgres:10.10
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: test123
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Use Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '12.x'
+          node-version: '14.x'
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         id: yarn-cache
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          key: ${{ runner.os }}-yarn-2-${{ hashFiles('**/package.json') }}
 
       - run: yarn install --frozen-lockfile
       - run: yarn bootstrap
       - run: yarn build
-      - run: yarn test:integration
+      - name: run integration tests
+        env:
+          INCLUDE_POSTGRES_TESTS: true
+          POSTGRES_HOST: localhost
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: test123
+          POSTGRES_PORT: 5432
+        run: yarn test:integration
+
+      - name: run browser tests
+        run: yarn test:browser
 
       - name: setup git coordinates
         run: |
@@ -48,7 +66,7 @@ jobs:
 
       - name: setup npm registry
         run: |
-          echo "@veramo:registry=http://registry.npmjs.org/" > .npmrc
+          echo "@veramo:registry=https://registry.npmjs.org/" > .npmrc
           echo "registry=https://registry.npmjs.org/" >> .npmrc
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
           npm whoami
@@ -60,3 +78,7 @@ jobs:
       - name: publish @next when on next
         if: github.ref == 'refs/heads/next'
         run: yarn publish:next
+
+      - name: publish @unstable when on unstable branch
+        if: github.ref == 'refs/heads/unstable'
+        run: yarn publish:unstable

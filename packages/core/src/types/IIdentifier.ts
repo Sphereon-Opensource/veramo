@@ -1,3 +1,5 @@
+import { MinimalImportableKey } from './IKeyManager'
+
 /**
  * Identifier interface
  * @public
@@ -35,10 +37,18 @@ export interface IIdentifier {
 }
 
 /**
+ * Represents the minimum amount of information needed to import an {@link IIdentifier}
+ */
+export type MinimalImportableIdentifier = {
+  keys: MinimalImportableKey[]
+  services?: IService[]
+} & Omit<IIdentifier, 'keys' | 'services'>
+
+/**
  * Cryptographic key type
  * @public
  */
-export type TKeyType = 'Ed25519' | 'Secp256k1'
+export type TKeyType = 'Ed25519' | 'Secp256k1' | 'X25519' | 'Bls12381G1' | 'Bls12381G2'
 
 /**
  * Cryptographic key
@@ -71,9 +81,14 @@ export interface IKey {
   privateKeyHex?: string
 
   /**
-   * Optional. Key metadata. Can be used to store auth data to access remote kms
+   * Optional. Key metadata. This should be used to determine which algorithms are supported.
    */
-  meta?: object | null
+  meta?: KeyMetadata | null
+}
+
+export interface KeyMetadata {
+  algorithms?: string[]
+  [x: string]: any
 }
 
 /**

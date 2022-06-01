@@ -1,5 +1,5 @@
 import { getAgent } from './setup'
-import program from 'commander'
+import { program } from 'commander'
 const fs = require('fs')
 
 const message = program.command('message').description('Messages')
@@ -31,7 +31,7 @@ message
       })
 
       console.dir(message, { depth: 10 })
-    } catch (e) {
+    } catch (e: any) {
       console.error(e.message)
     }
   })

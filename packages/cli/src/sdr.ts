@@ -1,10 +1,12 @@
 import { ICredentialRequestInput } from '@veramo/selective-disclosure'
 import { getAgent } from './setup'
-import program from 'commander'
+import { program } from 'commander'
 import inquirer from 'inquirer'
 import qrcode from 'qrcode-terminal'
 import { shortDate, shortDid } from './explore/utils'
 import { VerifiableCredential } from '@veramo/core'
+import { asArray, extractIssuer } from '@veramo/utils'
+
 const fuzzy = require('fuzzy')
 
 const sdr = program.command('sdr').description('Selective Disclosure Request')
@@ -36,12 +38,20 @@ sdr
         message: 'Subject DID',
         type: 'autocomplete',
         pageSize: 15,
-        suggestOnly: true,
-        source: async (answers: any, search: string) => {
+        source: async (answers: any, input: string) => {
           const res = fuzzy
-            .filter(search, subjects)
+            .filter(input, subjects)
             .map((el: any) => (typeof el === 'string' ? el : el.original))
           return res
+        },
+        validate: (val) => {
+          if (val && typeof val !== 'string') {
+            val = val.value
+          }
+          if (!val || !val.startsWith('did:')) {
+            return "Subject DID does not start with 'did:'..."
+          }
+          return true
         },
       },
       {
@@ -167,7 +177,7 @@ sdr
             name:
               JSON.stringify(credential.verifiableCredential.credentialSubject) +
               ' | Issuer: ' +
-              credential.verifiableCredential.issuer.id,
+              extractIssuer(credential.verifiableCredential),
             value: credential.verifiableCredential.proof.jwt,
           })
         }
@@ -221,17 +231,19 @@ sdr
       },
     ])
 
+    const msg_data = {
+      from: answers.iss,
+      to: answers.sub,
+      type: 'jwt',
+      body: jwt,
+    }
+
     if (!send) {
-      await agent.handleMessage({ raw: jwt, metaData: [{ type: 'cli' }], save: true })
+      await agent.handleMessage({ raw: JSON.stringify(msg_data), metaData: [{ type: 'cli' }], save: true })
     } else if (answers.sub !== '') {
       try {
         const result = await agent.sendMessageDIDCommAlpha1({
-          data: {
-            from: answers.iss,
-            to: answers.sub,
-            type: 'jwt',
-            body: jwt,
-          },
+          data: msg_data,
         })
         console.log('Sent:', result)
       } catch (e) {
@@ -295,13 +307,13 @@ sdr
         name: item.claimType + ' ' + (item.essential ? '(essential)' : '') + item.reason,
         choices: item.credentials.map((c) => ({
           name:
-            c.credentialSubject[item.claimType] +
+            c.verifiableCredential.credentialSubject[item.claimType] +
             ' (' +
-            c.type.join(',') +
+            asArray(c.verifiableCredential.type || []).join(',') +
             ') issued by: ' +
-            c.issuer.id +
+            extractIssuer(c.verifiableCredential) +
             ' ' +
-            shortDate(c.issuanceDate) +
+            shortDate(c.verifiableCredential.issuanceDate) +
             ' ago',
           value: c,
         })),

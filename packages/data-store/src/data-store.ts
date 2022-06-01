@@ -11,9 +11,11 @@ import {
   VerifiableCredential,
   VerifiablePresentation,
   schema,
+  IDataStoreDeleteVerifiableCredentialArgs,
 } from '@veramo/core'
 import { Message, createMessageEntity, createMessage } from './entities/message'
 import { Credential, createCredentialEntity } from './entities/credential'
+import { Claim } from './entities/claim'
 import { Presentation, createPresentationEntity } from './entities/presentation'
 import { Connection } from 'typeorm'
 
@@ -28,6 +30,7 @@ export class DataStore implements IAgentPlugin {
     this.methods = {
       dataStoreSaveMessage: this.dataStoreSaveMessage.bind(this),
       dataStoreGetMessage: this.dataStoreGetMessage.bind(this),
+      dataStoreDeleteVerifiableCredential: this.dataStoreDeleteVerifiableCredential.bind(this),
       dataStoreSaveVerifiableCredential: this.dataStoreSaveVerifiableCredential.bind(this),
       dataStoreGetVerifiableCredential: this.dataStoreGetVerifiableCredential.bind(this),
       dataStoreSaveVerifiablePresentation: this.dataStoreSaveVerifiablePresentation.bind(this),
@@ -44,13 +47,36 @@ export class DataStore implements IAgentPlugin {
 
   async dataStoreGetMessage(args: IDataStoreGetMessageArgs): Promise<IMessage> {
     try {
-      const messageEntity = await (await this.dbConnection).getRepository(Message).findOneOrFail(args.id, {
+      const messageEntity = await (await this.dbConnection).getRepository(Message).findOne({
+        where: { id: args.id },
         relations: ['credentials', 'presentations'],
       })
+      if (!messageEntity) throw new Error('Message not found')
+
       return createMessage(messageEntity)
     } catch (e) {
       throw Error('Message not found')
     }
+  }
+
+  async dataStoreDeleteVerifiableCredential(
+    args: IDataStoreDeleteVerifiableCredentialArgs,
+  ): Promise<boolean> {
+    const credentialEntity = await (await this.dbConnection)
+      .getRepository(Credential)
+      .findOneBy({ hash: args.hash })
+    if (!credentialEntity) throw new Error('Verifiable credential not found')
+
+    const claims = await (await this.dbConnection)
+      .getRepository(Claim)
+      .find({ where: { credential: { id: credentialEntity.id } } })
+    // .find({ where: [{ column: 'credential', value: [credentialEntity.id] }] })
+
+    await (await this.dbConnection).getRepository(Claim).remove(claims)
+
+    await (await this.dbConnection).getRepository(Credential).remove(credentialEntity)
+
+    return true
   }
 
   async dataStoreSaveVerifiableCredential(args: IDataStoreSaveVerifiableCredentialArgs): Promise<string> {
@@ -66,7 +92,9 @@ export class DataStore implements IAgentPlugin {
     try {
       const credentialEntity = await (await this.dbConnection)
         .getRepository(Credential)
-        .findOneOrFail(args.hash)
+        .findOneBy({ hash: args.hash })
+      if (!credentialEntity) throw new Error('Verifiable credential not found')
+
       return credentialEntity.raw
     } catch (e) {
       throw Error('Verifiable credential not found')
@@ -86,7 +114,9 @@ export class DataStore implements IAgentPlugin {
     try {
       const presentationEntity = await (await this.dbConnection)
         .getRepository(Presentation)
-        .findOneOrFail(args.hash)
+        .findOneBy({ hash: args.hash })
+      if (!presentationEntity) throw new Error('Verifiable presentation not found')
+
       return presentationEntity.raw
     } catch (e) {
       throw Error('Verifiable presentation not found')

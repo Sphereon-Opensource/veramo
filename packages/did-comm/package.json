@@ -1,7 +1,7 @@
 {
   "name": "@veramo/did-comm",
-  "description": "Veramo DIDComm inspired messaging based on the v1 messaging envelope.",
-  "version": "1.1.0",
+  "description": "Veramo messaging plugin implementing DIDComm v2.",
+  "version": "3.1.0",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
@@ -10,20 +10,26 @@
   },
   "veramo": {
     "pluginInterfaces": {
-      "IDIDComm": "./src/action-handler.ts"
+      "IDIDComm": "./src/types/IDIDComm.ts"
     }
   },
   "dependencies": {
-    "@veramo/core": "^1.1.0",
-    "@veramo/message-handler": "^1.1.0",
+    "@ethersproject/signing-key": "^5.5.0",
+    "@stablelib/ed25519": "^1.0.2",
+    "@veramo/core": "^3.1.0",
+    "@veramo/message-handler": "^3.1.0",
+    "@veramo/utils": "^3.1.0",
     "cross-fetch": "^3.1.4",
-    "debug": "^4.1.1",
+    "debug": "^4.3.3",
+    "did-jwt": "^5.12.3",
+    "did-resolver": "^3.1.5",
+    "uint8arrays": "3.0.0",
     "uuid": "^8.3.0"
   },
   "devDependencies": {
-    "@types/debug": "4.1.5",
-    "@types/uuid": "8.3.0",
-    "typescript": "4.2.4"
+    "@types/debug": "4.1.7",
+    "@types/uuid": "8.3.4",
+    "typescript": "4.7.2"
   },
   "files": [
     "build/**/*",
@@ -38,10 +44,8 @@
   "repository": "git@github.com:uport-project/veramo.git",
   "author": "Simonas Karuzas <simonas.karuzas@mesh.xyz>",
   "contributors": [
-    {
-      "name": "Mircea Nistor",
-      "email": "mircea.nistor@mesh.xyz"
-    }
+    "Mircea Nistor <mircea.nistor@mesh.xyz",
+    "Oliver Terbu <oliver.terbu@mesh.xyz"
   ],
   "license": "Apache-2.0",
   "keywords": []

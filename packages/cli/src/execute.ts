@@ -1,7 +1,5 @@
-import { input } from 'blessed'
-import program from 'commander'
+import { program } from 'commander'
 import inquirer from 'inquirer'
-import jsonpointer from 'jsonpointer'
 import { getAgent } from './setup'
 const fs = require('fs')
 const OasResolver = require('oas-resolver')
@@ -109,7 +107,7 @@ program
         methodApi.returnType.description ? `(${methodApi.returnType.description}):` : ':',
         JSON.stringify(result, null, 2),
       )
-    } catch (e) {
+    } catch (e: any) {
       console.error(e.message)
     }
   })

@@ -1,86 +1,4 @@
-/**
- * Verifiable Credential {@link https://github.com/decentralized-identifier/did-jwt-vc}
- * @public
- */
-export interface VerifiableCredential {
-  '@context': string[]
-  id?: string
-  type: string[]
-  issuer: { id: string; [x: string]: any }
-  issuanceDate: string
-  expirationDate?: string
-  credentialSubject: {
-    id?: string
-    [x: string]: any
-  }
-  credentialStatus?: {
-    id: string
-    type: string
-  }
-  proof: {
-    type?: string
-    [x: string]: any
-  }
-  [x: string]: any
-}
-
-/**
- * Verifiable Presentation {@link https://github.com/decentralized-identifier/did-jwt-vc}
- * @public
- */
-export interface VerifiablePresentation {
-  id?: string
-  holder: string
-  issuanceDate?: string
-  expirationDate?: string
-  '@context': string[]
-  type: string[]
-  verifier: string[]
-  verifiableCredential: VerifiableCredential[]
-  proof: {
-    type?: string
-    [x: string]: any
-  }
-  [x: string]: any
-}
-
-/**
- * W3CCredential {@link https://github.com/decentralized-identifier/did-jwt-vc}
- * @public
- */
-export interface W3CCredential {
-  '@context': string[]
-  id?: string
-  type: string[]
-  issuer: { id: string; [x: string]: any }
-  issuanceDate: string
-  expirationDate?: string
-  credentialSubject: {
-    id?: string
-    [x: string]: any
-  }
-  credentialStatus?: {
-    id: string
-    type: string
-  }
-  [x: string]: any
-}
-
-/**
- * W3CPresentation {@link https://github.com/decentralized-identifier/did-jwt-vc}
- * @public
- */
-export interface W3CPresentation {
-  id?: string
-  holder: string
-  issuanceDate?: string
-  expirationDate?: string
-  '@context': string[]
-  type: string[]
-  verifier: string[]
-  verifiableCredential: VerifiableCredential[]
-  [x: string]: any
-}
+import { VerifiableCredential, VerifiablePresentation } from './vc-data-model'
 
 /**
  * Message meta data
@@ -99,7 +17,7 @@ export interface IMetaData {
 }
 
 /**
- * DIDComm message
+ * Represents a DIDComm v1 message payload, with optionally decoded credentials and presentations.
  * @public
  */
 export interface IMessage {

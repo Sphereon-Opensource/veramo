@@ -1,12 +1,21 @@
 import 'cross-fetch/polyfill'
 import yaml from 'yaml'
-import { IDataStore, IDIDManager, IMessageHandler, IKeyManager, IResolver, TAgent } from '@veramo/core'
+import {
+  IDataStore,
+  IDataStoreORM,
+  IDIDManager,
+  IKeyManager,
+  IMessageHandler,
+  IResolver,
+  TAgent,
+} from '@veramo/core'
 import { ICredentialIssuer } from '@veramo/credential-w3c'
 import { ISelectiveDisclosure } from '@veramo/selective-disclosure'
 import { IDIDComm } from '@veramo/did-comm'
-import { IDataStoreORM } from '@veramo/data-store'
-const fs = require('fs')
+import { IDIDDiscovery } from '@veramo/did-discovery'
 import { createAgentFromConfig } from './lib/agentCreator'
+
+const fs = require('fs')
 
 export const getConfig = (fileName: string): any => {
   if (!fs.existsSync(fileName)) {
@@ -15,9 +24,9 @@ export const getConfig = (fileName: string): any => {
     process.exit(1)
   }
 
-  const config = yaml.parse(fs.readFileSync(fileName).toString())
+  const config = yaml.parse(fs.readFileSync(fileName).toString(), { prettyErrors: true })
 
-  if (config?.version != 2) {
+  if (config?.version != 3) {
     console.log('Unsupported configuration file version:', config.version)
     process.exit(1)
   }
@@ -32,14 +41,15 @@ export type EnabledInterfaces = IDIDManager &
   IMessageHandler &
   IDIDComm &
   ICredentialIssuer &
-  ISelectiveDisclosure
+  ISelectiveDisclosure &
+  IDIDDiscovery
 
 export type ConfiguredAgent = TAgent<EnabledInterfaces>
 
 export function getAgent(fileName: string) {
   try {
     return createAgentFromConfig<EnabledInterfaces>(getConfig(fileName))
-  } catch (e) {
+  } catch (e: any) {
     console.log('Unable to create agent from ' + fileName + '.', e.message)
     process.exit(1)
   }

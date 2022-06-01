@@ -1,7 +1,7 @@
 {
   "name": "@veramo/message-handler",
   "description": "Message Handler plugin for Veramo",
-  "version": "1.1.0",
+  "version": "3.1.0",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
@@ -9,10 +9,10 @@
     "extract-api": "yarn veramo dev extract-api"
   },
   "dependencies": {
-    "@veramo/core": "^1.1.0"
+    "@veramo/core": "^3.1.0"
   },
   "devDependencies": {
-    "typescript": "4.2.4"
+    "typescript": "4.7.2"
   },
   "files": [
     "build/**/*",

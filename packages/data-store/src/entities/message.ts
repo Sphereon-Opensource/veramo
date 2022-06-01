@@ -1,32 +1,32 @@
 import {
-  Entity,
-  Column,
   BaseEntity,
-  ManyToOne,
-  ManyToMany,
-  PrimaryColumn,
-  JoinTable,
-  CreateDateColumn,
-  UpdateDateColumn,
   BeforeInsert,
+  BeforeUpdate,
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  PrimaryColumn,
 } from 'typeorm'
-import { blake2bHex } from 'blakejs'
 import { IMessage } from '@veramo/core'
 import { Identifier } from './identifier'
-import { Presentation, createPresentationEntity } from './presentation'
-import { Credential, createCredentialEntity } from './credential'
+import { createPresentationEntity, Presentation } from './presentation'
+import { createCredentialEntity, Credential } from './credential'
+import { computeEntryHash } from '@veramo/utils'
+import { v4 as uuidv4 } from 'uuid'
 
 export interface MetaData {
   type: string
   value?: string
 }
 
-@Entity()
+@Entity('message')
 export class Message extends BaseEntity {
   @BeforeInsert()
   setId() {
     if (!this.id) {
-      this.id = blake2bHex(this.raw)
+      this.id = computeEntryHash(this.raw || uuidv4())
     }
   }
 
@@ -34,11 +34,22 @@ export class Message extends BaseEntity {
   //@ts-ignore
   id: string
 
-  @CreateDateColumn({ select: false })
+  @BeforeInsert()
+  setSaveDate() {
+    this.saveDate = new Date()
+    this.updateDate = new Date()
+  }
+
+  @BeforeUpdate()
+  setUpdateDate() {
+    this.updateDate = new Date()
+  }
+
+  @Column({ select: false })
   //@ts-ignore
   saveDate: Date
 
-  @UpdateDateColumn({ select: false })
+  @Column({ select: false })
   //@ts-ignore
   updateDate: Date
 
@@ -73,6 +84,7 @@ export class Message extends BaseEntity {
     nullable: true,
     cascade: ['insert'],
     eager: true,
+    onDelete: 'CASCADE',
   })
   from?: Identifier
 
@@ -80,6 +92,7 @@ export class Message extends BaseEntity {
     nullable: true,
     cascade: ['insert'],
     eager: true,
+    onDelete: 'CASCADE',
   })
   to?: Identifier
 

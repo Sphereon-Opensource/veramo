@@ -16,6 +16,11 @@ export interface MessagingRouterOptions {
     type: string
     value?: string
   }
+
+  /**
+   * Optional. true by default
+   */
+  save?: boolean
 }
 
 /**
@@ -30,16 +35,15 @@ export const MessagingRouter = (options: MessagingRouterOptions): Router => {
   router.post('/', async (req: RequestWithMessageHandler, res) => {
     try {
       const message = await req.agent?.handleMessage({
-        raw: (req.body as any) as string,
+        raw: req.body as any as string,
         metaData: [options.metaData],
-        save: true,
+        save: typeof options.save === 'undefined' ? true : options.save,
       })
 
       if (message) {
-        console.log('Received message', message.type, message.id)
         res.json({ id: message.id })
       }
-    } catch (e) {
+    } catch (e: any) {
       console.log(e)
       res.send(e.message)
     }

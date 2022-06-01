@@ -1,9 +1,10 @@
+import { KeyMetadata, TKeyType } from '@veramo/core'
 import { Entity, Column, PrimaryColumn, BaseEntity, ManyToOne } from 'typeorm'
 import { Identifier } from './identifier'
 
-export type KeyType = 'Ed25519' | 'Secp256k1'
+export type KeyType = TKeyType
 
-@Entity()
+@Entity('key')
 export class Key extends BaseEntity {
   @PrimaryColumn()
   //@ts-ignore
@@ -21,13 +22,21 @@ export class Key extends BaseEntity {
   //@ts-ignore
   publicKeyHex: string
 
-  @Column({ nullable: true })
-  privateKeyHex?: string
+  @Column({
+    type: 'simple-json',
+    nullable: true,
+    transformer: {
+      to: (value: any): KeyMetadata | null => {
+        return value
+      },
+      from: (value: KeyMetadata | null): object | null => {
+        return value
+      },
+    },
+  })
+  meta?: KeyMetadata | null
 
-  @Column({ type: 'simple-json', nullable: true })
-  meta?: object | null
-
-  @ManyToOne((type) => Identifier, (identifier) => identifier.keys)
+  @ManyToOne((type) => Identifier, (identifier) => identifier?.keys, { onDelete: 'CASCADE' })
   //@ts-ignore
-  identifier: Identifier
+  identifier?: Identifier
 }

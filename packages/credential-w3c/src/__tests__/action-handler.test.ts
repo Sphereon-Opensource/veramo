@@ -1,79 +1,106 @@
-import {
-  W3CCredential,
-  VerifiableCredential,
-  IIdentifier,
-  W3CPresentation,
-  VerifiablePresentation,
-} from '@veramo/core'
+// Mock must come before imports with transitive dependency.
+jest.mock('did-jwt-vc', () => {
+  const mockDidJwtVc = {
+    createVerifiableCredentialJwt: jest.fn().mockReturnValue('mockVcJwt'),
+    createVerifiablePresentationJwt: jest.fn().mockReturnValue('mockVcJwt'),
+    verifyCredential: jest.fn().mockReturnValue({ payload: {} }),
+    normalizeCredential: jest.fn().mockReturnValue('mockCredential'),
+    normalizePresentation: jest.fn().mockReturnValue('mockPresentation'),
+  }
+  return mockDidJwtVc
+})
 
-const mockDidJwtVc = {
-  createVerifiableCredentialJwt: jest.fn().mockReturnValue('mockVcJwt'),
-  createVerifiablePresentationJwt: jest.fn().mockReturnValue('mockVcJwt'),
-  verifyCredential: jest.fn().mockReturnValue({ payload: {} }),
-  normalizeCredential: jest.fn().mockReturnValue('mockCredential'),
-  normalizePresentation: jest.fn().mockReturnValue('mockPresentation'),
-}
-
-jest.mock('did-jwt-vc', () => mockDidJwtVc)
-
+import { CredentialPayload, IIdentifier, IKey, PresentationPayload, VerifiableCredential } from '@veramo/core'
 import { CredentialIssuer, IContext } from '../action-handler'
 
-const mockIdentifier1: IIdentifier = {
-  did: 'did:example:111',
-  provider: 'mock',
-  controllerKeyId: 'kid1',
-  keys: [
-    {
-      kid: 'kid1',
-      publicKeyHex: 'pub',
-      type: 'Secp256k1',
-      kms: 'mock',
-    },
-  ],
-  services: [],
-}
-
-const mockIdentifier2: IIdentifier = {
-  did: 'did:example:222',
-  provider: 'mock',
-  controllerKeyId: 'kid2',
-  keys: [
-    {
-      kid: 'kid2',
-      publicKeyHex: 'pub',
-      type: 'Secp256k1',
-      kms: 'mock',
-    },
-  ],
-  services: [],
-}
-
-const context: IContext = {
-  agent: {
-    execute: jest.fn(),
-    availableMethods: jest.fn(),
-    resolveDid: jest.fn(),
-    emit: jest.fn(),
-    didManagerGet: jest.fn().mockImplementation(async (args): Promise<IIdentifier> => mockIdentifier1),
-    keyManagerSignJWT: jest.fn().mockImplementation(async (args): Promise<string> => 'mockJWT'),
-    dataStoreSaveVerifiableCredential: jest.fn().mockImplementation(async (args): Promise<boolean> => true),
-    dataStoreSaveVerifiablePresentation: jest.fn().mockImplementation(async (args): Promise<boolean> => true),
-    getSchema: jest.fn(),
+const mockIdentifiers: IIdentifier[] = [
+  {
+    did: 'did:example:111',
+    provider: 'mock',
+    controllerKeyId: 'kid1',
+    keys: [
+      {
+        kid: 'kid1',
+        publicKeyHex: 'pub',
+        type: 'Secp256k1',
+        kms: 'mock',
+      },
+    ],
+    services: [],
   },
-}
+  {
+    did: 'did:example:222',
+    provider: 'mock',
+    controllerKeyId: 'kid2',
+    keys: [
+      {
+        kid: 'kid2',
+        publicKeyHex: 'pub',
+        type: 'Secp256k1',
+        kms: 'mock',
+      },
+    ],
+    services: [],
+  },
+  {
+    did: 'did:example:333',
+    provider: 'mock',
+    controllerKeyId: 'kid3',
+    keys: [
+      {
+        kid: 'kid3',
+        publicKeyHex: 'pub',
+        type: 'Ed25519',
+        kms: 'mock',
+      },
+    ],
+    services: [],
+  },
+]
 
 const w3c = new CredentialIssuer()
 
+let agent = {
+  execute: jest.fn(),
+  availableMethods: jest.fn(),
+  resolveDid: jest.fn(),
+  getDIDComponentById: jest.fn(),
+  emit: jest.fn(),
+  keyManagerSign: jest.fn().mockImplementation(async (args): Promise<string> => 'mockJWT'),
+  keyManagerGet: jest.fn().mockImplementation(
+    async (args): Promise<IKey> => ({
+      kid: '',
+      kms: '',
+      type: 'Ed25519',
+      publicKeyHex: '',
+    }),
+  ),
+  dataStoreSaveVerifiableCredential: jest.fn().mockImplementation(async (args): Promise<boolean> => true),
+  dataStoreSaveVerifiablePresentation: jest.fn().mockImplementation(async (args): Promise<boolean> => true),
+  getSchema: jest.fn(),
+  didManagerGet: jest.fn(),
+  didManagerFind: jest.fn(),
+  createVerifiableCredentialLD: jest.fn(),
+  createVerifiablePresentationLD: jest.fn(),
+  verifyCredentialLD: jest.fn(),
+  verifyPresentationLD: jest.fn(),
+}
+
 describe('@veramo/credential-w3c', () => {
-  it('handles createVerifiableCredential', async () => {
-    const credential: W3CCredential = {
+  test.each(mockIdentifiers)('handles createVerifiableCredential', async (mockIdentifier) => {
+    expect.assertions(3)
+
+    agent.didManagerGet = jest.fn().mockImplementation(async (args): Promise<IIdentifier> => mockIdentifier)
+    const context: IContext = { agent: agent }
+
+    const credential: CredentialPayload = {
       '@context': ['https://www.w3.org/2018/credentials/v1', 'https://www.w3.org/2020/demo/4342323'],
       type: ['VerifiableCredential', 'PublicProfile'],
-      issuer: { id: mockIdentifier1.did },
+      issuer: { id: mockIdentifier.did },
       issuanceDate: new Date().toISOString(),
       id: 'vc1',
       credentialSubject: {
-        id: mockIdentifier2.did,
+        id: 'https://example.com/user/alice',
         name: 'Alice',
         profilePicture: 'https://example.com/a.png',
         address: {
@@ -92,22 +119,27 @@ describe('@veramo/credential-w3c', () => {
       context,
     )
     // TODO Update these after refactoring did-jwt-vc
-    expect(context.agent.didManagerGet).toBeCalledWith({ did: mockIdentifier1.did })
+    expect(context.agent.didManagerGet).toBeCalledWith({ did: mockIdentifier.did })
     expect(context.agent.dataStoreSaveVerifiableCredential).toBeCalledWith({
       verifiableCredential: 'mockCredential',
     })
     expect(vc).toEqual('mockCredential')
   })
 
-  it('handles createVerifiablePresentation', async () => {
+  test.each(mockIdentifiers)('handles createVerifiablePresentation', async (mockIdentifier) => {
+    expect.assertions(3)
+
+    agent.didManagerGet = jest.fn().mockImplementation(async (args): Promise<IIdentifier> => mockIdentifier)
+    const context: IContext = { agent: agent }
+
     const credential: VerifiableCredential = {
       '@context': ['https://www.w3.org/2018/credentials/v1'],
       type: ['VerifiableCredential', 'PublicProfile'],
-      issuer: { id: mockIdentifier1.did },
+      issuer: { id: mockIdentifier.did },
       issuanceDate: new Date().toISOString(),
       id: 'vc1',
       credentialSubject: {
-        id: mockIdentifier2.did,
+        id: 'https://example.com/user/alice',
         name: 'Alice',
         profilePicture: 'https://example.com/a.png',
         address: {
@@ -120,11 +152,10 @@ describe('@veramo/credential-w3c', () => {
       },
     }
 
-    const presentation: W3CPresentation = {
+    const presentation: PresentationPayload = {
       '@context': ['https://www.w3.org/2018/credentials/v1'],
       type: ['VerifiablePresentation'],
-      holder: mockIdentifier1.did,
-      verifier: [mockIdentifier2.did],
+      holder: mockIdentifier.did,
       issuanceDate: new Date().toISOString(),
       verifiableCredential: [credential],
     }
@@ -138,7 +169,7 @@ describe('@veramo/credential-w3c', () => {
       context,
     )
 
-    expect(context.agent.didManagerGet).toBeCalledWith({ did: mockIdentifier1.did })
+    expect(context.agent.didManagerGet).toBeCalledWith({ did: mockIdentifier.did })
     expect(context.agent.dataStoreSaveVerifiablePresentation).toBeCalledWith({
       verifiablePresentation: 'mockPresentation',
     })

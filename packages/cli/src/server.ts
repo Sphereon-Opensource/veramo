@@ -1,5 +1,5 @@
 import express from 'express'
-import program from 'commander'
+import { program } from 'commander'
 import { getConfig } from './setup'
 import { createObjects } from './lib/objectCreator'
 
@@ -15,7 +15,7 @@ program
     try {
       const config = createObjects(getConfig(program.opts().config), { server: '/server' })
       server = config.server
-    } catch (e) {
+    } catch (e: any) {
       console.log(e.message)
       process.exit(1)
     }

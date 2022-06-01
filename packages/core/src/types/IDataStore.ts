@@ -1,5 +1,6 @@
 import { IPluginMethodMap } from './IAgent'
-import { IMessage, VerifiablePresentation, VerifiableCredential } from './IMessage'
+import { IMessage } from './IMessage'
+import { VerifiableCredential, VerifiablePresentation } from './vc-data-model'
 
 /**
  * Input arguments for {@link IDataStore.dataStoreSaveMessage | dataStoreSaveMessage}
@@ -39,6 +40,17 @@ export interface IDataStoreSaveVerifiableCredentialArgs {
  * @public
  */
 export interface IDataStoreGetVerifiableCredentialArgs {
+  /**
+   * Required. VerifiableCredential hash
+   */
+  hash: string
+}
+
+/**
+ * Input arguments for {@link IDataStoreDeleteVerifiableCredentialArgs | IDataStoreDeleteVerifiableCredentialArgs}
+ * @public
+ */
+export interface IDataStoreDeleteVerifiableCredentialArgs {
   /**
    * Required. VerifiableCredential hash
    */
@@ -92,6 +104,13 @@ export interface IDataStore extends IPluginMethodMap {
    * @returns a promise that resolves to the hash of the VerifiableCredential
    */
   dataStoreSaveVerifiableCredential(args: IDataStoreSaveVerifiableCredentialArgs): Promise<string>
+
+  /**
+   * Deletes verifiable credential from the data store
+   * @param args - verifiable credential
+   * @returns a promise that resolves to a boolean
+   */
+  dataStoreDeleteVerifiableCredential(args: IDataStoreDeleteVerifiableCredentialArgs): Promise<boolean>
 
   /**
    * Gets verifiable credential from the data store

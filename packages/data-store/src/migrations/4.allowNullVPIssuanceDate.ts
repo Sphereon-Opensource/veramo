@@ -30,10 +30,17 @@ export class AllowNullIssuanceDateForPresentations1637237492913 implements Migra
     // update issuanceDate column
     let table = await queryRunner.getTable(tableName)
     const oldColumn = table?.findColumnByName('issuanceDate')!
-    const newColumn = oldColumn.clone()
-    newColumn.isNullable = true
     debug(`updating issuanceDate for presentations to allow null`)
+    let newColumn;
+    if (oldColumn) {
+      newColumn = oldColumn.clone()
+      newColumn.isNullable = true
     await queryRunner.changeColumn(table!, oldColumn, newColumn)
+    } else {
+      // const dateTimeType: string = queryRunner.connection.driver.mappedDataTypes.createDate as string
+      // newColumn = new TableColumn({name: 'issuanceDate', type: dateTimeType, isNullable: true})
+      // await queryRunner.addColumn(tableName, newColumn)
+    }
     debug(`updated issuanceDate for presentations to allow null`)
 
     if (queryRunner.connection.driver.options.type === 'sqlite') {

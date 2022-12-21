@@ -54,7 +54,7 @@ export class CreateDatabase1447159020001 implements MigrationInterface {
           { name: 'publicKeyHex', type: 'varchar' },
           { name: 'privateKeyHex', type: 'varchar', isNullable: true },
           { name: 'meta', type: 'text', isNullable: true },
-          { name: 'identifierDid', type: 'varchar' },
+          { name: 'identifierDid', type: 'varchar', isNullable: true },
         ],
         foreignKeys: [
           {
@@ -77,7 +77,7 @@ export class CreateDatabase1447159020001 implements MigrationInterface {
           { name: 'type', type: 'varchar' },
           { name: 'serviceEndpoint', type: 'varchar' },
           { name: 'description', type: 'varchar', isNullable: true },
-          { name: 'identifierDid', type: 'varchar' },
+          { name: 'identifierDid', type: 'varchar', isNullable: true },
         ],
         foreignKeys: [
           {
@@ -164,7 +164,6 @@ export class CreateDatabase1447159020001 implements MigrationInterface {
       }),
       true,
     )
-
     debug(`creating presentations table`)
     // "CREATE TABLE \"presentation\" (\"hash\" varchar PRIMARY KEY NOT NULL, \"raw\" text NOT NULL, \"id\" varchar, \"issuanceDate\" datetime NOT NULL, \"expirationDate\" datetime, \"context\" text NOT NULL, \"type\" text NOT NULL, \"holderDid\" varchar, CONSTRAINT \"FK_a5e418449d9f527776a3bd0ca61\" FOREIGN KEY (\"holderDid\") REFERENCES \"identifier\" (\"did\") ON DELETE NO ACTION ON UPDATE NO ACTION)",
     await queryRunner.createTable(

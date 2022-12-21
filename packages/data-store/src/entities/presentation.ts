@@ -18,6 +18,7 @@ import { normalizeCredential } from 'did-jwt-vc'
  */
 @Entity('presentation')
 export class Presentation extends BaseEntity {
+
   @PrimaryColumn()
     //@ts-ignore
   hash: string
@@ -41,7 +42,15 @@ export class Presentation extends BaseEntity {
     onDelete: 'CASCADE',
   })
     //@ts-ignore
-  holder: Identifier
+  @Column({ nullable: true }) private _holderDid: string
+
+  get holderDid(): string {
+    return this._holderDid;
+  }
+
+  set holderDid(value: string) {
+    this._holderDid = value;
+  }
 
   @ManyToMany((type) => Identifier, (identifier) => identifier?.receivedPresentations, {
     cascade: ['insert'],
@@ -97,9 +106,7 @@ export const createPresentationEntity = (vpi: VerifiablePresentation): Presentat
     presentation.expirationDate = new Date(vp.expirationDate)
   }
 
-  const holder = new Identifier()
-  holder.did = vp.holder
-  presentation.holder = holder
+  presentation.holderDid = vp.holder
 
   presentation.verifier = asArray(vp.verifier || []).map((verifierDid) => {
     const id = new Identifier()

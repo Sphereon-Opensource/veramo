@@ -83,7 +83,7 @@ export class Identifier extends BaseEntity {
     //@ts-ignore
   receivedMessages: Message[]
 
-  @OneToMany((type) => Presentation, (presentation) => presentation.holder)
+  @OneToMany((type) => Presentation, (presentation) => presentation.holderDid)
     //@ts-ignore
   issuedPresentations: Presentation[]
 

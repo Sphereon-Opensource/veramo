@@ -11,17 +11,15 @@ const debug = Debug('veramo:data-store:migrate-private-keys')
  */
 export class CreatePrivateKeyStorage1629293428674 implements MigrationInterface {
   async up(queryRunner: QueryRunner): Promise<void> {
-    function getTableName(givenName: string): string {
-      return (
-        queryRunner.connection.entityMetadatas.find((meta) => meta.givenTableName === givenName)?.tableName ||
-        givenName
-      )
+    function getTable(givenName: string): Table {
+      const entityMetadatas = queryRunner.connection.entityMetadatas.find((meta) => meta.givenTableName === givenName);
+      return Table.create(entityMetadatas!, queryRunner.connection.driver);
     }
     // 1.create new table
     debug(`creating new private-key table`)
     await queryRunner.createTable(
       new Table({
-        name: getTableName('private-key'),
+        name: getTable('private-key').name,
         columns: [
           {
             name: 'alias',
@@ -41,7 +39,7 @@ export class CreatePrivateKeyStorage1629293428674 implements MigrationInterface 
       true,
     )
     // 2. copy key data
-    const keys: PreMigrationKey[] = await queryRunner.manager.find(PreMigrationKey)
+    const keys: PreMigrationKey[] = await queryRunner.manager.query(`SELECT * FROM key`);
     debug(`got ${keys.length} potential keys to migrate`)
     const privKeys = keys
       .filter((key) => typeof key.privateKeyHex !== 'undefined' && key.privateKeyHex !== null)
@@ -54,12 +52,14 @@ export class CreatePrivateKeyStorage1629293428674 implements MigrationInterface 
     await queryRunner.manager
       .createQueryBuilder()
       .insert()
-      .into(getTableName('private-key'))
+      .into(getTable('private-key').name)
       .values(privKeys)
       .execute()
     // 3. drop old column
     debug(`dropping privKeyHex column from old key table`)
-    await queryRunner.dropColumn(getTableName('key'), 'privateKeyHex')
+    if (getTable('key').columns.filter((column => column.name === 'privateKeyHex')).length > 0) {
+      await queryRunner.dropColumn(getTable('key'), 'privateKeyHex')
+    }
     //4. done
     debug(`migrated ${privKeys.length} keys to private key storage`)
   }

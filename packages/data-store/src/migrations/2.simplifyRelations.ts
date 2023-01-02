@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, TableColumn } from 'typeorm'
+import { MigrationInterface, QueryRunner, Table, TableColumn } from 'typeorm'
 import Debug from 'debug'
 
 /**
@@ -8,19 +8,17 @@ import Debug from 'debug'
  */
 export class SimplifyRelations1447159020002 implements MigrationInterface {
   async up(queryRunner: QueryRunner): Promise<void> {
-    function getTableName(givenName: string): string {
-      return (
-        queryRunner.connection.entityMetadatas.find((meta) => meta.givenTableName === givenName)?.tableName ||
-        givenName
-      )
+    function getTable(givenName: string): Table {
+      const entityMetadatas = queryRunner.connection.entityMetadatas.find((meta) => meta.givenTableName === givenName);
+      return Table.create(entityMetadatas!, queryRunner.connection.driver);
     }
     await queryRunner.changeColumn(
-      getTableName('key'),
+      getTable('key'),
       'identifierDid',
       new TableColumn({ name: 'identifierDid', type: 'varchar', isNullable: true }),
     )
     await queryRunner.changeColumn(
-      getTableName('service'),
+        getTable('service'),
       'identifierDid',
       new TableColumn({ name: 'identifierDid', type: 'varchar', isNullable: true }),
     )

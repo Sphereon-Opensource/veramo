@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner } from 'typeorm'
+import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 import { Presentation } from '..'
 import Debug from 'debug'
 
@@ -16,6 +16,10 @@ export class AllowNullIssuanceDateForPresentations1637237492913 implements Migra
       givenName
     )
   }
+  async getTable(queryRunner: QueryRunner, givenName: string): Promise<Table> {
+    const entityMetadatas = queryRunner.connection.entityMetadatas.find((meta) => meta.givenTableName === givenName);
+    return Table.create(entityMetadatas!, queryRunner.connection.driver);
+  }
 
   async up(queryRunner: QueryRunner): Promise<void> {
     if (queryRunner.connection.driver.options.type === 'sqlite') {
@@ -26,9 +30,8 @@ export class AllowNullIssuanceDateForPresentations1637237492913 implements Migra
       await queryRunner.startTransaction()
     }
 
-    const tableName = this.getTableName('presentation', queryRunner)
     // update issuanceDate column
-    let table = await queryRunner.getTable(tableName)
+    let table = await this.getTable(queryRunner, 'presentation');
     const oldColumn = table?.findColumnByName('issuanceDate')!
     const newColumn = oldColumn.clone()
     newColumn.isNullable = true

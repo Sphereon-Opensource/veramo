@@ -20,6 +20,7 @@ const keyMapping: Record<TKeyType, string> = {
   X25519: 'X25519KeyAgreementKey2019',
   Bls12381G1: 'Bls12381G1Key2020',
   Bls12381G2: 'Bls12381G2Key2020',
+  RSA: 'JsonWebKey2020',
 }
 
 /**
@@ -45,7 +46,8 @@ export const WebDidDocRouter = (options: WebDidDocRouterOptions): Router => {
       id: identifier.did + '#' + key.kid,
       type: keyMapping[key.type],
       controller: identifier.did,
-      publicKeyHex: key.publicKeyHex,
+      ...(key?.meta?.publicKeyJwk ? { publicKeyJwk: key?.meta?.publicKeyJwk } : {}),
+      ...(!key?.meta?.publicKeyJwk ? { publicKeyHex: key.publicKeyHex } : {}),
     }))
     // ed25519 keys can also be converted to x25519 for key agreement
     const keyAgreementKeyIds = allKeys

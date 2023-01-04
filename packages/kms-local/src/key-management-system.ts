@@ -1,13 +1,17 @@
-import { TKeyType, IKey, ManagedKeyInfo, MinimalImportableKey, RequireOnly } from '@veramo/core'
-import { AbstractKeyManagementSystem, AbstractPrivateKeyStore, Eip712Payload } from '@veramo/key-manager'
-import { ManagedPrivateKey } from '@veramo/key-manager'
+import { IKey, ManagedKeyInfo, MinimalImportableKey, RequireOnly, TKeyType } from '@veramo/core'
+import {
+  AbstractKeyManagementSystem,
+  AbstractPrivateKeyStore,
+  Eip712Payload,
+  ManagedPrivateKey,
+} from '@veramo/key-manager'
 
 import { EdDSASigner, ES256KSigner, ES256Signer } from 'did-jwt'
 import {
-  generateKeyPair as generateSigningKeyPair,
   convertPublicKeyToX25519,
   convertSecretKeyToX25519,
   extractPublicKeyFromSecretKey,
+  generateKeyPair as generateSigningKeyPair,
 } from '@stablelib/ed25519'
 import {
   generateKeyPair as generateEncryptionKeypair,
@@ -21,9 +25,22 @@ import { Wallet } from '@ethersproject/wallet'
 import { SigningKey } from '@ethersproject/signing-key'
 import { randomBytes } from '@ethersproject/random'
 import { arrayify, hexlify } from '@ethersproject/bytes'
+import JSEncrypt from '@sphereon/jsencrypt'
+
 import * as u8a from 'uint8arrays'
 import Debug from 'debug'
 import elliptic from 'elliptic'
+import {
+  base64ToHex,
+  hexToPEM,
+  jwkToPEM,
+  pemCertChainTox5c,
+  PEMToHex,
+  PEMToJwk,
+  privateKeyHexFromPEM,
+  X509Opts,
+} from './x509/x509-utils'
+import { RSASigner } from './x509/rsa-signer'
 
 const debug = Debug('veramo:kms:local')
 
@@ -49,7 +66,7 @@ export class KeyManagementSystem extends AbstractKeyManagementSystem {
       throw new Error('invalid_argument: type and privateKeyHex are required to import a key')
     }
     const managedKey = this.asManagedKeyInfo({ alias: args.kid, ...args })
-    await this.keyStore.import({ alias: managedKey.kid, ...args })
+    await this.keyStore.import({ alias: managedKey.kid,  ...args })
     debug('imported key', managedKey.type, managedKey.publicKeyHex)
     return managedKey
   }
@@ -86,6 +103,13 @@ export class KeyManagementSystem extends AbstractKeyManagementSystem {
         key = await this.importKey({
           type,
           privateKeyHex: u8a.toString(keyPairX25519.secretKey, 'base16'),
+        })
+        break
+      }
+      case 'RSA': {
+        key = await this.importKey({
+          type,
+          privateKeyHex: privateKeyHexFromPEM(new JSEncrypt().getPrivateKey()),
         })
         break
       }
@@ -133,12 +157,16 @@ export class KeyManagementSystem extends AbstractKeyManagementSystem {
       } else if (['eth_signTypedData', 'EthereumEip712Signature2021'].includes(algorithm)) {
         return await this.eth_signTypedData(managedKey.privateKeyHex, data)
       } else if (['eth_rawSign'].includes(algorithm)) {
-        return this.eth_rawSign(managedKey.privateKeyHex, data);
+        return this.eth_rawSign(managedKey.privateKeyHex, data)
       }
     } else if (managedKey.type === 'Secp256r1' &&
-       (typeof algorithm === 'undefined' || algorithm === 'ES256')
+      (typeof algorithm === 'undefined' || algorithm === 'ES256')
     ) {
       return await this.signES256(managedKey.privateKeyHex, data)
+    } else if ((managedKey.type === 'RSA') &&
+      (typeof algorithm === 'undefined' || algorithm === 'RS256' || algorithm === 'RS512')
+    ) {
+      return await this.signRSA(managedKey.privateKeyHex, data, algorithm)
     }
 
     throw Error(`not_supported: Cannot sign ${algorithm} using key of type ${managedKey.type}`)
@@ -206,7 +234,7 @@ export class KeyManagementSystem extends AbstractKeyManagementSystem {
         `invalid_arguments: Cannot sign typed data. 'domain', 'types', and 'message' must be provided`,
       )
     }
-    delete(msgTypes.EIP712Domain)
+    delete (msgTypes.EIP712Domain)
     const wallet = new Wallet(privateKeyHex)
 
     const signature = await wallet._signTypedData(msgDomain, msgTypes, msg)
@@ -248,7 +276,7 @@ export class KeyManagementSystem extends AbstractKeyManagementSystem {
    * @returns a `0x` prefixed hex string representing the signed digest in compact format
    */
   private eth_rawSign(managedKey: string, data: Uint8Array) {
-    return new SigningKey("0x" + managedKey).signDigest(data).compact
+    return new SigningKey('0x' + managedKey).signDigest(data).compact
   }
 
   /**
@@ -287,6 +315,21 @@ export class KeyManagementSystem extends AbstractKeyManagementSystem {
     // base64url encoded string
     return signature as string
   }
+
+  /**
+   * @returns a base64url encoded signature for the `RS256` alg
+   */
+  private async signRSA(
+    privateKeyHex: string,
+    data: Uint8Array,
+    alg?: string,
+  ): Promise<string> {
+    const dm = alg && alg.endsWith('512') ? 'sha512' : 'sha256'
+    const signer = new RSASigner(hexToPEM(privateKeyHex, 'private'), dm)
+    const signature = await signer.sign(data)
+    return signature as string
+  }
+
 
   /**
    * Converts a {@link @veramo/key-manager#ManagedPrivateKey | ManagedPrivateKey} to {@link @veramo/core#ManagedKeyInfo}
@@ -350,6 +393,56 @@ export class KeyManagementSystem extends AbstractKeyManagementSystem {
         }
         break
       }
+      case 'RSA': {
+        // @ts-ignore // We need this as the interface on the args, does not allow for any metadata on managed key imports
+        const x509 = args.meta?.x509 as X509Opts
+        const privateKeyPEM = args.privateKeyHex.includes('---') ? args.privateKeyHex : hexToPEM(args.privateKeyHex, 'private') // In case we have x509 opts, the private key hex really was a PEM already (yuck)
+        const publicKeyJwk = PEMToJwk(privateKeyPEM, 'public')
+        const publicKeyPEM = jwkToPEM(publicKeyJwk, 'public')
+        const publicKeyHex = PEMToHex(publicKeyPEM)
+
+        const meta = {} as any
+        if (x509) {
+          meta.x509 = {
+            cn: x509.cn || args.alias || publicKeyHex
+          }
+          let certChain: string = x509.certificateChainPEM || ''
+          if (x509.certificatePEM) {
+            if (!certChain.includes(x509.certificatePEM)) {
+              certChain = `${x509.certificatePEM}\n${certChain}`
+            }
+          }
+          if (certChain.length > 0) {
+            const x5c = pemCertChainTox5c(certChain)
+            if (!x509.certificateChainURL) {
+              // Do not put the chain in the JWK when the chain is hosted. We do put it in the x509 metadata
+              // @ts-ignore
+              publicKeyJwk.x5c = x5c
+            }
+            meta.x509.x5c = x5c
+          }
+          if (x509.certificateChainURL) {
+            // @ts-ignore
+            publicKeyJwk.x5u = x509.certificateChainURL
+            meta.x509.x5u = x509.certificateChainURL
+          }
+        }
+
+        key = {
+          type: args.type,
+          kid: meta?.x509?.cn || args.alias || publicKeyHex,
+          publicKeyHex,
+          meta: {
+            ...meta,
+            // todo: could als be DSA etc
+            algorithms: ['RS256', 'RS512'],
+            publicKeyJwk,
+            publicKeyPEM,
+          },
+        }
+        break
+      }
+
       default:
         throw Error('not_supported: Key type not supported: ' + args.type)
     }

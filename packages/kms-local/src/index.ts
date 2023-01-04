@@ -7,3 +7,4 @@
  */
 export { KeyManagementSystem } from './key-management-system'
 export { SecretBox } from './secret-box'
+export { privateKeyHexFromPEM } from './x509/x509-utils'

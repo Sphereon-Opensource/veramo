@@ -15,6 +15,12 @@ export class CreatePrivateKeyStorage1629293428674 implements MigrationInterface 
       const entityMetadatas = queryRunner.connection.entityMetadatas.find((meta) => meta.givenTableName === givenName);
       return Table.create(entityMetadatas!, queryRunner.connection.driver);
     }
+    function getTableName(givenName: string): string {
+      return (
+          queryRunner.connection.entityMetadatas.find((meta) => meta.givenTableName === givenName)?.tableName ||
+          givenName
+      )
+    }
     // 1.create new table
     debug(`creating new private-key table`)
     await queryRunner.createTable(
@@ -39,7 +45,8 @@ export class CreatePrivateKeyStorage1629293428674 implements MigrationInterface 
       true,
     )
     // 2. copy key data
-    const keys: PreMigrationKey[] = await queryRunner.manager.query(`SELECT * FROM key`);
+    const keys: PreMigrationKey[] = await queryRunner.manager.query(`SELECT * FROM `+getTableName('key'));
+
     debug(`got ${keys.length} potential keys to migrate`)
     const privKeys = keys
       .filter((key) => typeof key.privateKeyHex !== 'undefined' && key.privateKeyHex !== null)
@@ -57,9 +64,57 @@ export class CreatePrivateKeyStorage1629293428674 implements MigrationInterface 
       .execute()
     // 3. drop old column
     debug(`dropping privKeyHex column from old key table`)
-    if (getTable('key').columns.filter((column => column.name === 'privateKeyHex')).length > 0) {
-      await queryRunner.dropColumn(getTable('key'), 'privateKeyHex')
-    }
+
+    await queryRunner.startTransaction();
+
+    await queryRunner.createTable(
+        new Table({
+          name: getTableName('key_backup'),
+          columns: [
+            { name: 'kid', type: 'varchar', isPrimary: true },
+            { name: 'kms', type: 'varchar' },
+            { name: 'type', type: 'varchar' },
+            { name: 'publicKeyHex', type: 'varchar' },
+            { name: 'meta', type: 'text', isNullable: true },
+            { name: 'identifierDid', type: 'varchar' },
+          ],
+          foreignKeys: [
+            {
+              columnNames: ['identifierDid'],
+              referencedColumnNames: ['did'],
+              referencedTableName: getTableName('identifier'),
+            },
+          ],
+        }),
+        true,
+    )
+    await queryRunner.manager.query('INSERT INTO '+getTableName('key_backup')+' SELECT kid, kms, type, publicKeyHex, meta, identifierDid FROM '+getTableName('key')+';');
+    await queryRunner.manager.query('DROP TABLE '+getTableName('key')+';');
+    await queryRunner.createTable(
+        new Table({
+          name: getTableName('key'),
+          columns: [
+            { name: 'kid', type: 'varchar', isPrimary: true },
+            { name: 'kms', type: 'varchar' },
+            { name: 'type', type: 'varchar' },
+            { name: 'publicKeyHex', type: 'varchar' },
+            { name: 'meta', type: 'text', isNullable: true },
+            { name: 'identifierDid', type: 'varchar', isNullable: true },
+          ],
+          foreignKeys: [
+            {
+              columnNames: ['identifierDid'],
+              referencedColumnNames: ['did'],
+              referencedTableName: getTableName('identifier'),
+            },
+          ],
+        }),
+        true,
+    )
+    await queryRunner.manager.query('INSERT INTO '+getTableName('key')+' SELECT * FROM '+getTableName('key_backup')+';');
+    await queryRunner.manager.query('DROP TABLE '+getTableName('key_backup')+';');
+    await queryRunner.commitTransaction();
+
     //4. done
     debug(`migrated ${privKeys.length} keys to private key storage`)
   }

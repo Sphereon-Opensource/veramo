@@ -77,7 +77,7 @@ describe('@veramo/did-provider-ion', () => {
       }
       await expect(error.message).toMatch('An operation request already exists in queue for DID')
     }
-  })
+  }, 25000)
 
   it('should add service', async () => {
     // This DID is known in ION, hence no anchoring

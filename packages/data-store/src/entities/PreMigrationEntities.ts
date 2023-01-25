@@ -1,5 +1,5 @@
 import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm'
-import {Key, KeyType } from "./key";
+import {KeyType } from "./key";
 
 /**
  * This represents the private key data of keys that were stored by {@link @veramo/data-store#KeyStore} before Veramo
@@ -9,7 +9,7 @@ import {Key, KeyType } from "./key";
  * @beta This API may change without a BREAKING CHANGE notice.
  */
 @Entity('key')
-export class PreMigrationKey extends Key {
+export class PreMigrationKey extends BaseEntity {
   @PrimaryColumn()
     //@ts-ignore
   kid: string

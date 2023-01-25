@@ -79,8 +79,7 @@ describe('database initial migration tests', () => {
           synchronize: false,
           migrations: migrations,
           migrationsRun: true,
-          migrationsTransactionMode: "all",
-          logging: true,
+          logging: false,
           entities: Entities,
           ...connectionOverrides,
         } as DataSourceOptions)

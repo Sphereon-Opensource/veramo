@@ -4,8 +4,8 @@
   "scripts": {
     "build": "pnpm build:js && pnpm build:api && pnpm build:schema",
     "build:js": "pnpm -r --stream build",
-    "build:api": "pnpm --package=@veramo/cli -c dlx 'pnpm -r --stream extract-api'",
-    "build:schema": "pnpm --package=@veramo/cli -c dlx 'pnpm -r --stream generate-plugin-schema'",
+    "build:api": "pnpm --package=@veramo/cli -c dlx \"pnpm -r --stream extract-api\"",
+    "build:schema": "pnpm --package=@veramo/cli -c dlx \"pnpm -r --stream generate-plugin-schema\"",
     "lint": "echo \"linting not yet enabled\"",
     "test:integration-build": "pnpm test:integration-prepare && pnpm test:integration-pretty",
     "test:integration-prepare": "ts-node --project packages/tsconfig.settings.json ./scripts/prepare-integration-tests.ts",

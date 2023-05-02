@@ -4,14 +4,20 @@
   "version": "4.3.0",
   "main": "build/index.js",
   "types": "build/index.d.ts",
+  "veramo": {
+    "pluginInterfaces": {
+      "IKeyValueStore<ValueType>": "./src/key-value-types.ts"
+    }
+  },
   "scripts": {
     "build": "tsc",
     "test": "jest --config=../../jest.config.mjs",
     "test:ci": "jest --config=../../jest.config.mjs",
-    "extract-api": "node ../cli/bin/veramo.js dev extract-api"
+    "extract-api": "pnpm exec veramo dev extract-api",
+    "generate-plugin-schema": "pnpm exec veramo dev generate-plugin-schema"
   },
   "dependencies": {
-    "@veramo/utils": "workspace:*",
+    "@veramo/utils": "4.2.0",
     "events": "^3.3.0",
     "debug": "^4.3.4",
     "json-buffer": "^3.0.1",
@@ -19,6 +25,7 @@
     "uint8arrays": "^3.1.1"
   },
   "devDependencies": {
+    "@veramo/cli": "workspace:*",
     "@types/json-buffer": "^3.0.0",
     "@types/debug": "^4.1.7",
     "keyv": "^4.5.2",

@@ -1,6 +1,5 @@
 import { KeyValueStore } from '../key-value-store'
 import { IKeyValueStore } from '../key-value-types'
-import { beforeEach, expect } from '@jest/globals'
 
 interface TestValue {
   stringProp: string

@@ -12,32 +12,6 @@ export interface IKeyValueStoreOnArgs {
   listener: (...args: any[]) => void
 }
 
-/*export interface IKeyValueStoreGetArgs {
-  key: string
-}
-
-export interface IKeyValueStoreGetManyArgs {
-  keys: string[]
-}
-
-export interface IKeyValueStoreHasArgs {
-  key: string
-}
-
-export interface IKeyValueStoreDeleteArgs {
-  key: string
-}
-
-export interface IKeyValueStoreDeleteManyArgs {
-  keys: string[]
-}
-
-export interface IKeyValueStoreSetArgs<ValueType> {
-  key: string
-  value: ValueType
-  ttl?: number
-}*/
-
 export interface IKeyValueStoreOptions<ValueType> {
   [key: string]: any
 

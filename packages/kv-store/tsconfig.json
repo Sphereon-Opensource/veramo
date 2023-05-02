@@ -7,7 +7,6 @@
     "declarationDir": "build"
   },
   "references": [
-    { "path": "../core" },
     { "path": "../utils" }
   ]
 }

@@ -6,6 +6,10 @@ import { IKeyValueStoreAdapter } from '../../key-value-types'
 
 type KeyvTieredIndex = 'local' | 'remote'
 
+/**
+ * Tiered keyv store adapter, combining 2 adapters/stores into one
+ * @alpha
+ */
 export class KeyValueTieredStoreAdapter<Value>
   extends EventEmitter
   implements KeyvStore<Value>, IKeyValueStoreAdapter<Value>

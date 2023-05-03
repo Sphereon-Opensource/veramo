@@ -1,4 +1,10 @@
-import { IKeyValueStore, IKeyValueStoreOnArgs, IKeyValueStoreOptions, IValueData } from './key-value-types'
+import {
+  IKeyValueStore,
+  IKeyValueStoreOnArgs,
+  IKeyValueStoreOptions,
+  IValueData,
+  ValueStoreType,
+} from './key-value-types'
 import { Keyv } from './keyv/keyv'
 import { KeyvDeserializedData, KeyvOptions, KeyvStoredData } from './keyv/keyv-types'
 
@@ -6,11 +12,11 @@ import { KeyvDeserializedData, KeyvOptions, KeyvStoredData } from './keyv/keyv-t
  * Agent plugin that implements {@link @veramo/kv-store#IKeyValueStore} interface
  * @public
  */
-export class KeyValueStore<ValueType> implements IKeyValueStore<ValueType> {
+export class KeyValueStore<ValueType extends ValueStoreType> implements IKeyValueStore<ValueType> {
   /**
    * The main keyv typescript port which delegates to the storage adapters and takes care of some common functionality
    *
-   * @private
+   * @internal
    */
   private readonly keyv: Keyv<ValueType>
 
@@ -58,7 +64,9 @@ export class KeyValueStore<ValueType> implements IKeyValueStore<ValueType> {
     // Making sure we return the same array length as the amount of key(s) passed in
     if (result === null || result === undefined || result.length === 0) {
       result = new Array<KeyvStoredData<ValueType>>()
-      keys.forEach(() => result.push({ value: undefined, expires: undefined } as KeyvDeserializedData<ValueType>))
+      for (const key of keys) {
+        result.push({ value: undefined, expires: undefined } as unknown as KeyvDeserializedData<ValueType>)
+      }
     }
     return result.map((v) =>
       !!v ? this.toDeserializedValueData(v) : { value: undefined, expires: undefined },

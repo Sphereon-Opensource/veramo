@@ -11,7 +11,10 @@ export { KeyValueTypeORMOptions } from './types'
 export { KeyValueStoreEntity } from './entities/keyValueStoreEntity'
 export { kvStoreMigrations } from './migrations'
 
-
+/**
+ * TypeORM based key value store adapter
+ * @beta
+ */
 export class KeyValueTypeORMStoreAdapter
   extends EventEmitter
   implements KeyvStore<string>, IKeyValueStoreAdapter<string>
@@ -40,7 +43,7 @@ export class KeyValueTypeORMStoreAdapter
     if (Array.isArray(key)) {
       return this.getMany(key, options)
     }
-    const connection = await getConnectedDb(this.dbConnection)
+    const connection = await _getConnectedDb(this.dbConnection)
     const result = await connection.getRepository(KeyValueStoreEntity).findOneBy({
       key,
     })
@@ -48,7 +51,7 @@ export class KeyValueTypeORMStoreAdapter
   }
 
   async getMany(keys: string[], options?: { raw?: boolean }): Promise<Array<KeyvStoredData<string>>> {
-    const connection = await getConnectedDb(this.dbConnection)
+    const connection = await _getConnectedDb(this.dbConnection)
     const results = await connection.getRepository(KeyValueStoreEntity).findBy({
       key: In(keys),
     })
@@ -66,7 +69,7 @@ export class KeyValueTypeORMStoreAdapter
   }
 
   async set(key: string, value: string, ttl?: number): Promise<KeyvStoredData<string>> {
-    const connection = await getConnectedDb(this.dbConnection)
+    const connection = await _getConnectedDb(this.dbConnection)
     const entity = new KeyValueStoreEntity()
     entity.key = key
     entity.data = value
@@ -79,13 +82,13 @@ export class KeyValueTypeORMStoreAdapter
     if (Array.isArray(key)) {
       return this.deleteMany(key)
     }
-    const connection = await getConnectedDb(this.dbConnection)
+    const connection = await _getConnectedDb(this.dbConnection)
     const result = await connection.getRepository(KeyValueStoreEntity).delete({ key })
     return result.affected === 1
   }
 
   async deleteMany(keys: string[]): Promise<boolean> {
-    const connection = await getConnectedDb(this.dbConnection)
+    const connection = await _getConnectedDb(this.dbConnection)
     const results = await connection.getRepository(KeyValueStoreEntity).delete({
       key: In(keys),
     })
@@ -93,14 +96,14 @@ export class KeyValueTypeORMStoreAdapter
   }
 
   async clear(): Promise<void> {
-    const connection = await getConnectedDb(this.dbConnection)
+    const connection = await _getConnectedDb(this.dbConnection)
     await connection.getRepository(KeyValueStoreEntity).delete({
       key: Like(`${this.namespace}:%`),
     })
   }
 
   async has(key: string): Promise<boolean> {
-    const connection = await getConnectedDb(this.dbConnection)
+    const connection = await _getConnectedDb(this.dbConnection)
     const result = await connection.getRepository(KeyValueStoreEntity).countBy({
       key,
     })
@@ -108,7 +111,7 @@ export class KeyValueTypeORMStoreAdapter
   }
 
   async disconnect(): Promise<void> {
-    const connection = await getConnectedDb(this.dbConnection)
+    const connection = await _getConnectedDb(this.dbConnection)
     connection.destroy()
   }
 }
@@ -117,8 +120,9 @@ export class KeyValueTypeORMStoreAdapter
  *  Ensures that the provided DataSource is connected.
  *
  * @param dbConnection - a TypeORM DataSource or a Promise that resolves to a DataSource
+ * @internal
  */
-export async function getConnectedDb(dbConnection: OrPromise<DataSource>): Promise<DataSource> {
+export async function _getConnectedDb(dbConnection: OrPromise<DataSource>): Promise<DataSource> {
   if (dbConnection instanceof Promise) {
     return await dbConnection
   } else if (!dbConnection.isInitialized) {
